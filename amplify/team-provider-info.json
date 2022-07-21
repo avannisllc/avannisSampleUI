@@ -1,0 +1,121 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-appjs-dev-223730-authRole",
+      "UnauthRoleArn": "arn:aws:iam::828740487250:role/amplify-appjs-dev-223730-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::828740487250:role/amplify-appjs-dev-223730-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-appjs-dev-223730-deployment",
+      "UnauthRoleName": "amplify-appjs-dev-223730-unauthRole",
+      "StackName": "amplify-appjs-dev-223730",
+      "StackId": "arn:aws:cloudformation:us-west-2:828740487250:stack/amplify-appjs-dev-223730/bfa40900-a66c-11ec-9d8b-0a6902bdfebd",
+      "AmplifyAppId": "d296doj5ygv5zw"
+    },
+    "categories": {
+      "auth": {
+        "appjs504fdd16": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d296doj5ygv5zw",
+          "type": "manual"
+        }
+      }
+    }
+  },
+  "auth": {
+    "appjs9e3c241e": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-appjs-dev-143226-deployment/amplify-cfn-templates/auth/appjs9e3c241e-cloudformation-template.json",
+        "logicalId": "authappjs9e3c241e"
+      },
+      "lastPushTimeStamp": "2022-03-12T23:52:27.006Z",
+      "output": {
+        "UserPoolId": "us-west-2_lgjiNIFBF",
+        "AppClientIDWeb": "6tu5st6lorhf6f39vvs825f9ju",
+        "AppClientID": "1uohej2a569jr22hhk3k90l9dh",
+        "IdentityPoolId": "us-west-2:a18456f2-e3c8-4a2b-8a87-41f6f7b2e03a",
+        "UserPoolArn": "arn:aws:cognito-idp:us-west-2:828740487250:userpool/us-west-2_lgjiNIFBF",
+        "IdentityPoolName": "appjs9e3c241e_identitypool_9e3c241e__dev",
+        "UserPoolName": "appjs9e3c241e_userpool_9e3c241e"
+      },
+      "lastPushDirHash": "QUAgvoOys2JewrLOojJS1amVXuo="
+    }
+  },
+  "api": {
+    "appjs": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "t7lgtrfitbhhpcpbbqf46pecjq",
+        "GraphQLAPIEndpointOutput": "https://ifnkeqp5gjhzrac6ulrfeuuhsu.appsync-api.us-west-2.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-qaim4pphwncdjfdvceszxd7uzu"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-appjs-dev-143226-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiappjs"
+      },
+      "lastPushTimeStamp": "2022-03-12T23:52:27.009Z",
+      "lastPushDirHash": "MxB9Pci+pHwyB/DqgqYTlwaLbB4="
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "providerPlugin": "awscloudformation",
+      "type": "manual",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-appjs-dev-143226-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
+        "logicalId": "hostingamplifyhosting"
+      },
+      "lastPushTimeStamp": "2022-03-12T23:52:27.011Z",
+      "output": {},
+      "lastPushDirHash": "x2hNibqlCqt4m84yp+zqz282aaI="
+    }
+  },
+  "function": {},
+  "storage": {
+    "appjs087e95b7": {
+      "service": "S3",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "BucketName": "avannis-data-processing",
+        "Region": "us-west-2"
+      },
+      "lastPushTimeStamp": "2022-03-12T23:52:35.964Z"
+    }
+  }
+}

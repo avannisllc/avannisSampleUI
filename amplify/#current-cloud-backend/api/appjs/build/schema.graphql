@@ -1,0 +1,211 @@
+
+type Bank {
+  id: ID!
+  smkey: String!
+  name: String!
+  files(filter: ModelFileFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelFileConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type File {
+  id: ID!
+  name: String!
+  bank: Bank
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  bankFilesId: ID
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelBankConnection {
+  items: [Bank]!
+  nextToken: String
+}
+
+input ModelBankFilterInput {
+  id: ModelIDInput
+  smkey: ModelStringInput
+  name: ModelStringInput
+  and: [ModelBankFilterInput]
+  or: [ModelBankFilterInput]
+  not: ModelBankFilterInput
+}
+
+type Query {
+  getBank(id: ID!): Bank
+  listBanks(filter: ModelBankFilterInput, limit: Int, nextToken: String): ModelBankConnection
+  getFile(id: ID!): File
+  listFiles(filter: ModelFileFilterInput, limit: Int, nextToken: String): ModelFileConnection
+}
+
+input ModelBankConditionInput {
+  smkey: ModelStringInput
+  name: ModelStringInput
+  and: [ModelBankConditionInput]
+  or: [ModelBankConditionInput]
+  not: ModelBankConditionInput
+}
+
+input CreateBankInput {
+  id: ID
+  smkey: String!
+  name: String!
+}
+
+input UpdateBankInput {
+  id: ID!
+  smkey: String
+  name: String
+}
+
+input DeleteBankInput {
+  id: ID!
+}
+
+type Mutation {
+  createBank(input: CreateBankInput!, condition: ModelBankConditionInput): Bank
+  updateBank(input: UpdateBankInput!, condition: ModelBankConditionInput): Bank
+  deleteBank(input: DeleteBankInput!, condition: ModelBankConditionInput): Bank
+  createFile(input: CreateFileInput!, condition: ModelFileConditionInput): File
+  updateFile(input: UpdateFileInput!, condition: ModelFileConditionInput): File
+  deleteFile(input: DeleteFileInput!, condition: ModelFileConditionInput): File
+}
+
+type Subscription {
+  onCreateBank: Bank @aws_subscribe(mutations: ["createBank"])
+  onUpdateBank: Bank @aws_subscribe(mutations: ["updateBank"])
+  onDeleteBank: Bank @aws_subscribe(mutations: ["deleteBank"])
+  onCreateFile: File @aws_subscribe(mutations: ["createFile"])
+  onUpdateFile: File @aws_subscribe(mutations: ["updateFile"])
+  onDeleteFile: File @aws_subscribe(mutations: ["deleteFile"])
+}
+
+type ModelFileConnection {
+  items: [File]!
+  nextToken: String
+}
+
+input ModelFileFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  and: [ModelFileFilterInput]
+  or: [ModelFileFilterInput]
+  not: ModelFileFilterInput
+  bankFilesId: ModelIDInput
+}
+
+input ModelFileConditionInput {
+  name: ModelStringInput
+  and: [ModelFileConditionInput]
+  or: [ModelFileConditionInput]
+  not: ModelFileConditionInput
+  bankFilesId: ModelIDInput
+}
+
+input CreateFileInput {
+  id: ID
+  name: String!
+  bankFilesId: ID
+}
+
+input UpdateFileInput {
+  id: ID!
+  name: String
+  bankFilesId: ID
+}
+
+input DeleteFileInput {
+  id: ID!
+}
+
