@@ -15,29 +15,20 @@
   "api": {
     "appjs": {
       "service": "AppSync",
-      "providerPlugin": "awscloudformation",
       "output": {
         "authConfig": {
           "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 20,
-              "apiKeyExpirationDate": "2022-04-07T05:10:04.803Z",
-              "description": "appjs"
-            }
+            "authenticationType": "API_KEY"
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": null
         },
         "GraphQLAPIIdOutput": "kudl6lwkvbhjbcej3gzsrwnh4e",
         "GraphQLAPIEndpointOutput": "https://ifnkeqp5gjhzrac6ulrfeuuhsu.appsync-api.us-west-2.amazonaws.com/graphql",
-        "GraphQLAPIKeyOutput": "da2-qaim4pphwncdjfdvceszxd7uzu"
+        "name": "appjs",
+        "region": "us-west-2",
+        "GraphQLAPIKeyOutput": "da2-w4ebreqksrchvdbvntngdaabyi"
       },
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-appjs-dev-223730-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-        "logicalId": "apiappjs"
-      },
-      "lastPushTimeStamp": "2022-04-06T22:03:19.968Z",
-      "lastPushDirHash": "QWziWNuW4gZH1rkj2tS6o75wXfU="
+      "lastPushTimeStamp": "2022-08-11T18:34:23.747Z"
     }
   },
   "auth": {

@@ -31,6 +31,7 @@ export const listQuotas = /* GraphQL */ `
         completed
         date_group
         appi
+        qppi
         available
         available_both
         dwh_updated_time_utc
@@ -75,5 +76,38 @@ export const listInterviews = /* GraphQL */ `
       }
       nextToken
     }
+  }
+`;
+export const updateInterviews = /* GraphQL */ `
+mutation updateInterviews(
+  $bank_name: String!
+  ) {
+    bank_name
+    external_data_id
+    selected
+    form_data
+    survey_date_submitted
+    updated_count
+    updated_timestamp
+  }
+`;
+export const onUpdateQuotas = /* GraphQL */ `
+subscriptions onUpdateQuotas(
+    $bank_name: String
+    ) {
+      Goal
+      Methodology
+      available
+      appi
+      available_both
+      bank_name
+      branch_name
+      completed
+      date_group
+      dwh_updated_time_utc
+      qppi
+      sent
+      survey_type
+      uuid
   }
 `;

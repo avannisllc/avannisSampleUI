@@ -239,7 +239,7 @@ class App extends React.Component {
     console.log(sendObj)
     let jsonString = JSON.stringify(sendObj)
     const api = 'https://8vpyhf2yt3.execute-api.us-west-2.amazonaws.com/default/dataprocess_utils';
-
+    /*
     await axios
       .post(api, jsonString)
       .then((response) => {
@@ -277,6 +277,7 @@ class App extends React.Component {
           sendQuotaFail: true
         }, failTimeout)
       });
+      */
   }
 
   async deleteAcceptedFiles(files){
