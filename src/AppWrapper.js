@@ -76,8 +76,8 @@ render(){
     >
       {({ signOut, user }) => (
         <div id="root">
-       <App signOut={signOut} user={user} />
-       </div>
+        <App signOut={signOut} user={user} />
+        </div>
       )}
     </Authenticator>
   );

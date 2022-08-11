@@ -194,6 +194,7 @@ class App extends React.Component {
           if (totalBothAvail < sendAmount) {
             sendObj = {};
             sendObj.appi = row[10].value;
+            sendObj.qppi = row[11].value;
             sendObj.survey_type = row[2].value;
             sendObj.send_today = totalBothAvail;
             sendObj.methodology = "Both";
@@ -202,6 +203,7 @@ class App extends React.Component {
 
             sendObj = {};
             sendObj.appi = row[10].value;
+            sendObj.qppi = row[11].value;
             sendObj.survey_type = row[2].value;
             sendObj.methodology = row[1].value;
             sendObj.send_today = sendAloneAvail;
@@ -209,6 +211,7 @@ class App extends React.Component {
           } else {
             sendObj = {};
             sendObj.appi = row[10].value;
+            sendObj.qppi = row[11].value;
             sendObj.survey_type = row[2].value;
             sendObj.send_today = sendAmount;
             sendObj.methodology = "Both";
@@ -221,6 +224,7 @@ class App extends React.Component {
           if (sendAmount === 0) sendAloneAvail = 0
           sendObj = {};
           sendObj.appi = row[10].value;
+          sendObj.qppi = row[11].value;
           sendObj.survey_type = row[2].value;
           sendObj.methodology = row[1].value;
           sendObj.send_today = sendAloneAvail;
@@ -653,7 +657,7 @@ class App extends React.Component {
     quotas = quotas || await API.graphql({ query: listQuotas, variables : {filter: {bank_name: {eq: bankName || this.state.name}}}})
     let filters = []
     console.log(quotas)
-    let quotaGrid = [[{"readOnly": true,"value": "Bank Branch"},{"value": "Methodology","readOnly": true}, {"value": "Survey Type","readOnly": true}, {"value": "Monthly Goal","readOnly": true},{"value": "Monthly Sent","readOnly": true},{"value": "Monthly Received","readOnly": true},{"value": "Available to Send","readOnly": true, "forceComponent": true},{"value": "Available to Send to Both","readOnly": true},{"value": "Send Today","readOnly": true}, {"value" : "UUID", "readOnly": true}, {"value" : "appi", "readOnly": true}]];
+    let quotaGrid = [[{"readOnly": true,"value": "Bank Branch"},{"value": "Methodology","readOnly": true}, {"value": "Survey Type","readOnly": true}, {"value": "Monthly Goal","readOnly": true},{"value": "Monthly Sent","readOnly": true},{"value": "Monthly Received","readOnly": true},{"value": "Available to Send","readOnly": true, "forceComponent": true},{"value": "Available to Send to Both","readOnly": true},{"value": "Send Today","readOnly": true}, {"value" : "UUID", "readOnly": true}, {"value" : "appi", "readOnly": true}, {"value" : "qppi", "readOnly": true}]];
     quotas.data.listQuotas.items.forEach((item, index) => {
       let method,
       branch,
@@ -664,6 +668,7 @@ class App extends React.Component {
       uuid,
       monthly_received,
       appi,
+      qppi,
       available_both;
       item.Goal = item.Goal || 0
       for (let key in item) {
@@ -700,9 +705,12 @@ class App extends React.Component {
         if (key === 'appi') {
           appi = {value: item[key]}
         }
+        if (key === 'qppi') {
+          qppi = {value: item[key]}
+        }
       }
       let array = []
-      array.push(branch, method, survey_type, month_goal, monthly_sent, monthly_received, total_available, available_both, {"value":'0', "readOnly": false, 'className': 'sendToday', "forceComponent": true}, uuid, appi)
+      array.push(branch, method, survey_type, month_goal, monthly_sent, monthly_received, total_available, available_both, {"value":'0', "readOnly": false, 'className': 'sendToday', "forceComponent": true}, uuid, appi, qppi)
       quotaGrid.push(array)
     })
     let copyQuotaGrid = JSON.parse(JSON.stringify(quotaGrid))
