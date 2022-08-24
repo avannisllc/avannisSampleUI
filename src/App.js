@@ -239,7 +239,6 @@ class App extends React.Component {
     console.log(sendObj)
     let jsonString = JSON.stringify(sendObj)
     const api = 'https://8vpyhf2yt3.execute-api.us-west-2.amazonaws.com/default/dataprocess_utils';
-    /*
     await axios
       .post(api, jsonString)
       .then((response) => {
@@ -277,7 +276,6 @@ class App extends React.Component {
           sendQuotaFail: true
         }, failTimeout)
       });
-      */
   }
 
   async deleteAcceptedFiles(files){
@@ -1337,31 +1335,31 @@ class App extends React.Component {
               }
               let displayValue = this.displayValueHandler(key)
               test.push(<div key={key + index} style={{paddingTop: 10, paddingBottom: 35, display: 'flex', flexDirection: 'row', alignItems: 'center'}} className='form-group'>
-                                          <label className='formLabel' style={{marginBottom: 19, textIndent: 18}} for='formCheckbox'><span style={{fontWeight: 'bold'}}>{displayValue}</span></label> 
-                                          <input key={key} style={{width: 35, transform: 'scale(1.8)', marginTop: 3, accentColor: '#233d4f'}} type='checkbox' defaultChecked={formData[key][1]} id={'formCheckbox' + index + String(idx)} className="form-control" 
-                                           onChange={(e)=> {
-                                              document.getElementById(e.target.id).checked = e.target.checked 
-                                              this.formCheckboxChange(e, key, startCheckValue)
-                                             }} 
-                                            />
-                                          </div>)
+                          <label className='formLabel' style={{marginBottom: 19, textIndent: 18}} for='formCheckbox'><span style={{fontWeight: 'bold'}}>{displayValue}</span></label> 
+                          <input key={key} style={{width: 35, transform: 'scale(1.8)', marginTop: 3, accentColor: '#233d4f'}} type='checkbox' defaultChecked={formData[key][1]} id={'formCheckbox' + index + String(idx)} className="form-control" 
+                            onChange={(e)=> {
+                              document.getElementById(e.target.id).checked = e.target.checked 
+                              this.formCheckboxChange(e, key, startCheckValue)
+                              }} 
+                            />
+                          </div>)
             }
             if (formData[key][0] === 'textbox') {
               let initialText = formData[key][1] || '';
               let displayValue = this.displayValueHandler(key)
               test.push(<div key={key + index}  className="form-group">
-                                          <label className='formLabel' for="exampleFormControlTextarea1"><span style={{fontWeight: 'bold'}}>{displayValue}</span></label>
-                                          <textarea key={key} onChange={(e) => {
-                                            this.textAreaChange(e, key, initialText)
-                                            }} className="form-control" id="exampleFormControlTextarea1" defaultValue={initialText} rows="2"></textarea>
-                                        </div>)
+                          <label className='formLabel' for="exampleFormControlTextarea1"><span style={{fontWeight: 'bold'}}>{displayValue}</span></label>
+                          <textarea key={key} onChange={(e) => {
+                            this.textAreaChange(e, key, initialText)
+                            }} className="form-control" id="exampleFormControlTextarea1" defaultValue={initialText} rows="2"></textarea>
+                        </div>)
             }
             if (formData[key][0] === 'text') {
               let initialText = formData[key][1] || '';
               let displayValue = this.displayValueHandler(key)
               test.push(<div key={key + index}  className="form-group">
-                                          <label className='formLabel' for="exampleFormControlTextarea1"><span style={{fontWeight: 'bold'}}>{displayValue}</span></label>
-                                        </div>)
+                          <label className='formLabel' for="exampleFormControlTextarea1"><span style={{fontWeight: 'bold'}}>{displayValue}</span></label>
+                        </div>)
             }
             if (formData[key][0] === 'dropdown') {
               let displayValue = this.displayValueHandler(key)
@@ -1375,26 +1373,26 @@ class App extends React.Component {
                       if (curSelection[0] === key){ 
                         let defaultValue = curSelection[1]
                         test.push(<div key={key + index} style={{}}  className="form-group">
-                              <InterviewsDropdown style={{}} formDropdownChange={this.formDropdownChange.bind(this)} defaultValue={defaultValue} label={displayValue} options={formData[key][1]}/>
-                            </div>)
+                                    <InterviewsDropdown style={{}} formDropdownChange={this.formDropdownChange.bind(this)} defaultValue={defaultValue} label={displayValue} options={formData[key][1]}/>
+                                  </div>)
                       selected.splice(ind, 1)
                       } 
                       else {
                         test.push(<div id='notTopRowDropdownDiv' key={key + index} style={{}}  className="form-group">
-                        <InterviewsDropdown style={{}} defaultValue="" formDropdownChange={this.formDropdownChange.bind(this)} label={displayValue} options={formData[key][1]}/>
-                        </div>)
+                                    <InterviewsDropdown style={{}} defaultValue="" formDropdownChange={this.formDropdownChange.bind(this)} label={displayValue} options={formData[key][1]}/>
+                                  </div>)
                       }
                     })
                 } catch {
                 }
               }
               test.push(<div id='notTopRowDropdownDiv' key={key + index} style={{}}  className="form-group">
-                    <InterviewsDropdown style={{}} defaultValue="" formDropdownChange={this.formDropdownChange.bind(this)} label={displayValue} options={formData[key][1]}/>
-                    </div>)
+                          <InterviewsDropdown style={{}} defaultValue="" formDropdownChange={this.formDropdownChange.bind(this)} label={displayValue} options={formData[key][1]}/>
+                        </div>)
               } else {
                 test.push(<div id='notTopRowDropdownDiv' key={key + index} style={{}}  className="form-group">
-                    <InterviewsDropdown style={{}} defaultValue="" formDropdownChange={this.formDropdownChange.bind(this)} label={displayValue} options={formData[key][1]}/>
-                    </div>)
+                            <InterviewsDropdown style={{}} defaultValue="" formDropdownChange={this.formDropdownChange.bind(this)} label={displayValue} options={formData[key][1]}/>
+                          </div>)
               }
             } 
           }
