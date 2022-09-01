@@ -15,7 +15,7 @@ const FileModalDelete = (props) => {
         </Modal.Header>
           <Modal.Body>
             <p style={{fontWeight: "600"}}>Would you like to delete the following file?</p>
-            <p>{props.file}</p>
+            <p>{props.file.name}</p>
           </Modal.Body>
         <Modal.Footer style={{textAlign: 'center'}}>
           <Button variant="secondary" onClick={handleClose}>
@@ -24,13 +24,13 @@ const FileModalDelete = (props) => {
           <Button className="deleteFileConfirm" style={{backgroundColor: '#233d4f'}} onClick={(e) => {
             // console.log(e)
             try {
-              if (props.file.delete_file_log){
+              if (props.file.delete_log_file){
                 props.fileHandler(props.file.name, 'delete')
               } else {
-                props.deleteAcceptedFiles(props.file)
+                props.deleteAcceptedFiles(props.file.name)
               }
             } catch {
-              props.deleteAcceptedFiles(props.file)
+              props.deleteAcceptedFiles(props.file.name)
             }
             props.updateAlertHandler('delete')
             handleClose()

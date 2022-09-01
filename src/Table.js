@@ -167,6 +167,7 @@ class Table extends React.Component {
               >
                 <Files
                   displayAcceptedFiles={this.props.displayAcceptedFiles}
+                  deleteAcceptedFiles={this.props.deleteAcceptedFiles}
                   updateAlertHandler={this.updateAlertHandler.bind(this)} 
                   removeSelectedFiles={this.removeSelectedFiles.bind(this)}
                   addToSelectedFiles={this.addToSelectedFiles.bind(this)}

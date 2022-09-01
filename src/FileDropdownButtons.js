@@ -61,7 +61,7 @@ class DropdownButtons extends React.Component {
         </li>
         }
         <li class='dropdownBtnContainer'>
-          <FileModalDelete deleteAcceptedFiles={this.props.deleteAcceptedFiles} updateAlertHandler={this.props.updateAlertHandler}  fileHandler={this.props.fileHandler} file={this.props.file.name} />
+          <FileModalDelete deleteAcceptedFiles={this.props.deleteAcceptedFiles} updateAlertHandler={this.props.updateAlertHandler}  fileHandler={this.props.fileHandler} file={this.props.file} />
         </li>
       </div>
     )}
