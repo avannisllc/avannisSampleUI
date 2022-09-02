@@ -397,7 +397,7 @@ class App extends React.Component {
 			let key = 'data-pre-processing/rejected/evolytics1/' + fileName.name;
 			let delete_log_file =
 				fileName.delete_log_file.slice(
-					fileName.delete_log_file.indexOf('data-pre-processing'),
+					fileName.delete_log_file.indexOf('rejected_reason') + 16,
 					fileName.delete_log_file.length
 				) || '';
 			let params = {
@@ -455,8 +455,8 @@ class App extends React.Component {
 				params.Delete.Objects.push({ Key: key });
 				if (file.delete_log_file) {
 					let delete_log_file = file.delete_log_file.slice(
-						file.delete_log_file.indexOf('data-pre-processing'),
-						file.delete_log_file.length
+						fileName.delete_log_file.indexOf('rejected_reason') + 16,
+						fileName.delete_log_file.length
 					);
 					params.Delete.Objects.push({ Key: delete_log_file });
 				}
