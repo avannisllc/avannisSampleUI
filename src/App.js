@@ -394,10 +394,10 @@ class App extends React.Component {
 		});
 		let command;
 		if (option === 'delete') {
-			let key = 'data-pre-processing/rejected/evolytics1/' + fileName.name;
+			let key = `data-pre-processing/rejected/${this.state.bankInfo[0].name}/` + fileName.name;
 			let delete_log_file =
 				fileName.delete_log_file.slice(
-					fileName.delete_log_file.indexOf('rejected_reason') + 16,
+					fileName.delete_log_file.indexOf('rejected_reason'),
 					fileName.delete_log_file.length
 				) || '';
 			let params = {
@@ -451,11 +451,11 @@ class App extends React.Component {
 				}
 			};
 			fileName.forEach((file) => {
-				let key = 'data-pre-processing/rejected/evolytics1/' + file.name;
+				let key = `data-pre-processing/rejected/${this.state.bankInfo[0].name}/` + fileName.name;
 				params.Delete.Objects.push({ Key: key });
 				if (file.delete_log_file) {
 					let delete_log_file = file.delete_log_file.slice(
-						fileName.delete_log_file.indexOf('rejected_reason') + 16,
+						fileName.delete_log_file.indexOf('rejected_reason'),
 						fileName.delete_log_file.length
 					);
 					params.Delete.Objects.push({ Key: delete_log_file });
@@ -497,7 +497,7 @@ class App extends React.Component {
 					}, 1000);
 				});
 		} else if (option === 'download') {
-			let key = 'data-pre-processing/rejected/evolytics1/' + fileName;
+			let key = `data-pre-processing/rejected/${this.state.bankInfo[0].name}/` + fileName.name;
 			command = new GetObjectCommand({
 				Body: fileName,
 				Bucket: 'avannis-data-processing',
@@ -536,7 +536,7 @@ class App extends React.Component {
 				})
 				.catch((err) => console.error(err));
 		} else if (option === 'upload') {
-			let key = 'data-pre-processing/incoming/' + this.state.banks[0].bank_name + fileName;
+			let key = 'data-pre-processing/incoming/' + this.state.banks[0].bank_name +'/' + fileName;
 			command = new PutObjectCommand({ Bucket: 'avannis-data-processing', Key: key });
 			await client
 				.send(command)
