@@ -25,12 +25,12 @@ const FileModalDelete = (props) => {
             // console.log(e)
             try {
               if (props.file.delete_log_file){
-                props.fileHandler(props.file.name, 'delete')
+                props.fileHandler(props.file, 'delete')
               } else {
-                props.deleteAcceptedFiles(props.file.name)
+                props.deleteAcceptedFiles(props.file)
               }
             } catch {
-              props.deleteAcceptedFiles(props.file.name)
+              props.deleteAcceptedFiles(props.file)
             }
             props.updateAlertHandler('delete')
             handleClose()
