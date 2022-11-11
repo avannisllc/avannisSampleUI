@@ -385,7 +385,7 @@ class App extends React.Component {
 		}
 	}
 
-	async fileHandler(fileName, option) {
+	async fileHandler(file_s, option) {
 		let config = await Auth.currentCredentials();
 		const client = new S3Client({
 			credentials: config,
@@ -394,11 +394,11 @@ class App extends React.Component {
 		});
 		let command;
 		if (option === 'delete') {
-			let key = `data-pre-processing/rejected/${this.state.bankInfo[0].name}/` + fileName.name;
+			let key = `data-pre-processing/rejected/${this.state.bankInfo[0].name}/` + file_s.name;
 			let delete_log_file =
-				fileName.delete_log_file.slice(
-					fileName.delete_log_file.indexOf('rejected_reason'),
-					fileName.delete_log_file.length
+				file_s.delete_log_file.slice(
+					file_s.delete_log_file.indexOf('rejected_reason'),
+					file_s.delete_log_file.length
 				) || '';
 			let params = {
 				Bucket: 'avannis-data-processing',
@@ -450,13 +450,13 @@ class App extends React.Component {
 					Objects: []
 				}
 			};
-			fileName.forEach((file) => {
-				let key = `data-pre-processing/rejected/${this.state.bankInfo[0].name}/` + fileName.name;
+			file_s.forEach((file) => {
+				let key = `data-pre-processing/rejected/${this.state.bankInfo[0].name}/` + file_s.name;
 				params.Delete.Objects.push({ Key: key });
 				if (file.delete_log_file) {
 					let delete_log_file = file.delete_log_file.slice(
-						fileName.delete_log_file.indexOf('rejected_reason'),
-						fileName.delete_log_file.length
+						file_s.delete_log_file.indexOf('rejected_reason'),
+						file_s.delete_log_file.length
 					);
 					params.Delete.Objects.push({ Key: delete_log_file });
 				}
@@ -497,9 +497,9 @@ class App extends React.Component {
 					}, 1000);
 				});
 		} else if (option === 'download') {
-			let key = `data-pre-processing/rejected/${this.state.bankInfo[0].name}/` + fileName.name;
+			let key = `data-pre-processing/rejected/${this.state.bankInfo[0].name}/` + file_s.name;
 			command = new GetObjectCommand({
-				Body: fileName,
+				Body: file_s.name,
 				Bucket: 'avannis-data-processing',
 				Key: key
 			});
@@ -531,12 +531,12 @@ class App extends React.Component {
 				.then((stream) => new Response(stream))
 				.then((response) => response.blob())
 				.then((blob) => {
-					this.downloadBlob(blob, fileName);
+					this.downloadBlob(blob, file_s);
 					return URL.createObjectURL(blob);
 				})
 				.catch((err) => console.error(err));
 		} else if (option === 'upload') {
-			let key = 'data-pre-processing/incoming/' + this.state.banks[0].bank_name +'/' + fileName;
+			let key = 'data-pre-processing/incoming/' + this.state.banks[0].bank_name +'/' + file_s.name;
 			command = new PutObjectCommand({ Bucket: 'avannis-data-processing', Key: key });
 			await client
 				.send(command)
@@ -596,7 +596,7 @@ class App extends React.Component {
 			date = date.split('/');
 			let newDate = [];
 			newDate.push(date[2], date[0], date[1]);
-			newDate = newDate.join('/');
+			newDate = newDate.join('-');
 			return newDate;
 		} else if (date.indexOf('-')) {
 			date = date.split('-');
@@ -605,7 +605,7 @@ class App extends React.Component {
 				date[1] = date[1].substring(1);
 			}
 			newDate.push(date[1], date[2], date[0]);
-			newDate = newDate.join('/');
+			newDate = newDate.join('-');
 			return newDate;
 		}
 	}
@@ -993,8 +993,12 @@ class App extends React.Component {
 		let combinedChanges = [ ...this.state.formCheckboxes, ...this.state.textAreas ];
 		this.state.formDropdowns.forEach((item, index) => {
 			if (selected !== null) {
-				if (!selected[index].includes(item[0])) {
-					this.state.formDropdowns.push(selected[index]);
+				if (selected.length > 0){
+					try {
+						if (!selected[index].includes(item[0])) {
+							this.state.formDropdowns.push(selected[index]);
+						}
+					} catch (err) {}
 				}
 			}
 		});
@@ -1391,7 +1395,7 @@ class App extends React.Component {
 		}
 	}
 
-	displayValueHandler(key) {
+	displayValueHandler(key, formType) {
 		let displayValues = this.state.displayValues;
 		let topRow = this.state.top_row;
 		let isTopRow = false;
@@ -1408,8 +1412,8 @@ class App extends React.Component {
 		});
 		if (key === null) {
 			returnVal = '';
-		}
-		if (isTopRow === true && (key !== null || key !== 'null')) {
+		} 
+		if ((isTopRow === true && (key !== null || key !== 'null')) || formType === 'dropdown') {
 			returnVal = key;
 		}
 		return returnVal;
@@ -1522,7 +1526,7 @@ class App extends React.Component {
 							);
 						}
 						if (formData[key][0] === 'dropdown') {
-							let displayValue = this.displayValueHandler(key);
+							let displayValue = this.displayValueHandler(key, formData[key][0]);
 							if (formData[key][1] === null) {
 								formData[key][1] = [ 'No options available' ];
 							}
@@ -1566,18 +1570,19 @@ class App extends React.Component {
 									} catch (err) {
 										console.log(err);
 									}
+								} else {
+									test.push(
+										<div id="notTopRowDropdownDiv" key={key + index} style={{}} className="form-group">
+											<InterviewsDropdown
+												style={{}}
+												defaultValue=""
+												formDropdownChange={this.formDropdownChange.bind(this)}
+												label={displayValue}
+												options={formData[key][1]}
+											/>
+										</div>
+									);
 								}
-								test.push(
-									<div id="notTopRowDropdownDiv" key={key + index} style={{}} className="form-group">
-										<InterviewsDropdown
-											style={{}}
-											defaultValue=""
-											formDropdownChange={this.formDropdownChange.bind(this)}
-											label={displayValue}
-											options={formData[key][1]}
-										/>
-									</div>
-								);
 							} else {
 								test.push(
 									<div id="notTopRowDropdownDiv" key={key + index} style={{}} className="form-group">

@@ -49,8 +49,8 @@ class DropdownButtons extends React.Component {
         {this.props.file.error &&
         <li class='dropdownBtnContainer'>
           <button id='dropdownBtn' className="dropdownBtn">Replace File</button>
-          <input type='file' id="getFileReplace" style={{display:'none'}} 
-            onInput={(e) => {
+          <input type='file' className="dropdownBtn" id="getFileReplace" style={{'display':'none'}}
+            onChange={(e) => {
               console.log(e)
               // props.updateAlertHandler('upload')
               let name = e.target.files["0"].name

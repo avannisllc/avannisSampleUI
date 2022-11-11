@@ -94,7 +94,8 @@ class InterviewsDropdown extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      value: this.props.defaultValue
+      value: this.props.defaultValue,
+      key: this.props.key
     }
   }
 
@@ -109,8 +110,8 @@ class InterviewsDropdown extends React.Component {
       <div style={{}}>
         <span 
           style={{fontWeight: 'bold'}}>
-          {this.props.label}
-         </span>
+          {!this.props.label.includes('code') && this.props.label}
+        </span>
       </div>
       <Dropdown
         id='intDropdown'
@@ -134,7 +135,6 @@ class InterviewsDropdown extends React.Component {
             backgroundColor: '#233d4f',
             border: '2px solid white'
           }}
-          // defaultValue={this.props.defaultValue}
           id="dropdown-basic"
           as={CustomToggle}
         >
