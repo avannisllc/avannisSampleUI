@@ -13,15 +13,15 @@ https://drive.google.com/drive/folders/1oywRH6VmncTni6GGpbIGI5J3bnryyt0z?usp=sha
 
 ```
 # HTTPS
-$ git clone https://github.com/J-D-IV/avannis-ui.git
+$ git clone https://github.com/J-D-IV/avannis.git
 
 # SSH
-$ git clone git@github.com:J-D-IV/avannis-ui.git
+$ git clone git@github.com:J-D-IV/avannis.git
 
 $ cd app.js
 
-# Checkout the master branch
-$ git checkout master
+# Checkout the main branch
+$ git checkout main
 
 # Checkout a feature branch off of develop
 $ git checkout -b feature/<feature_name>
