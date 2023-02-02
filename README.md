@@ -3,7 +3,7 @@
 This repo includes the AWS Amplify configuration and API, 
 as well as the UI for the Avannis Data Sync project. The repo can be found here:
 
-https://github.com/J-D-IV/avannis-ui
+https://github.com/J-D-IV/avannis
 
 Product documentation can be found in this Google Drive folder:
 
