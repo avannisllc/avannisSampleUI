@@ -1530,7 +1530,7 @@ class App extends React.Component {
 							if (formData[key][1] === null) {
 								formData[key][1] = [ 'No options available' ];
 							}
-							if (selected[0] !== null) {
+							if (selected[0] !== null && selected[0] != undefined) {
 								if (selected.some((item) => (item.includes(key) ? true : false))) {
 									try {
 										selected.forEach((curSelection, ind) => {
