@@ -112,7 +112,7 @@
           ]
         },
         "Description": "appjs",
-        "Expires": 1649310084
+        "Expires": 1677620071
       }
     },
     "GraphQLAPINONEDS95A13CF0": {
@@ -251,17 +251,35 @@
               "ApiId"
             ]
           },
-          "referencetotransformerrootstackGraphQLAPINONEDS2BA9D1C8Name": {
-            "Fn::GetAtt": [
-              "GraphQLAPINONEDS95A13CF0",
-              "Name"
-            ]
-          },
           "referencetotransformerrootstackS3DeploymentBucket7592718ARef": {
             "Ref": "S3DeploymentBucket"
           },
           "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref": {
             "Ref": "S3DeploymentRootKey"
+          },
+          "referencetotransformerrootstackBankNestedStackBankNestedStackResource8BA72A62OutputstransformerrootstackBankQuerygetBankpostAuth0FunctionQuerygetBankpostAuth0FunctionAppSyncFunctionA5A5FE1CFunctionId": {
+            "Fn::GetAtt": [
+              "Bank",
+              "Outputs.transformerrootstackBankQuerygetBankpostAuth0FunctionQuerygetBankpostAuth0FunctionAppSyncFunctionA5A5FE1CFunctionId"
+            ]
+          },
+          "referencetotransformerrootstackBankNestedStackBankNestedStackResource8BA72A62OutputstransformerrootstackBankMutationcreateBankinit0FunctionMutationcreateBankinit0FunctionAppSyncFunctionED1734ECFunctionId": {
+            "Fn::GetAtt": [
+              "Bank",
+              "Outputs.transformerrootstackBankMutationcreateBankinit0FunctionMutationcreateBankinit0FunctionAppSyncFunctionED1734ECFunctionId"
+            ]
+          },
+          "referencetotransformerrootstackBankNestedStackBankNestedStackResource8BA72A62OutputstransformerrootstackBankMutationupdateBankinit0FunctionMutationupdateBankinit0FunctionAppSyncFunctionE085378DFunctionId": {
+            "Fn::GetAtt": [
+              "Bank",
+              "Outputs.transformerrootstackBankMutationupdateBankinit0FunctionMutationupdateBankinit0FunctionAppSyncFunctionE085378DFunctionId"
+            ]
+          },
+          "referencetotransformerrootstackBankNestedStackBankNestedStackResource8BA72A62OutputstransformerrootstackBankSubscriptionOnCreateBankDataResolverFnSubscriptionOnCreateBankDataResolverFnAppSyncFunction0D516418FunctionId": {
+            "Fn::GetAtt": [
+              "Bank",
+              "Outputs.transformerrootstackBankSubscriptionOnCreateBankDataResolverFnSubscriptionOnCreateBankDataResolverFnAppSyncFunction0D516418FunctionId"
+            ]
           }
         }
       },
@@ -303,10 +321,10 @@
               "ApiId"
             ]
           },
-          "referencetotransformerrootstackBankNestedStackBankNestedStackResource8BA72A62OutputstransformerrootstackBankBankDataSourceB7F9519BName": {
+          "referencetotransformerrootstackFileNestedStackFileNestedStackResourceA6722CA0OutputstransformerrootstackFileFileDataSource379A1C97Name": {
             "Fn::GetAtt": [
-              "Bank",
-              "Outputs.transformerrootstackBankBankDataSourceB7F9519BName"
+              "File",
+              "Outputs.transformerrootstackFileFileDataSource379A1C97Name"
             ]
           },
           "referencetotransformerrootstackS3DeploymentBucket7592718ARef": {
@@ -315,22 +333,22 @@
           "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref": {
             "Ref": "S3DeploymentRootKey"
           },
-          "referencetotransformerrootstackBankNestedStackBankNestedStackResource8BA72A62OutputstransformerrootstackBankBankTableD7C1CDF2Ref": {
-            "Fn::GetAtt": [
-              "Bank",
-              "Outputs.transformerrootstackBankBankTableD7C1CDF2Ref"
-            ]
-          },
-          "referencetotransformerrootstackFileNestedStackFileNestedStackResourceA6722CA0OutputstransformerrootstackFileFileDataSource379A1C97Name": {
-            "Fn::GetAtt": [
-              "File",
-              "Outputs.transformerrootstackFileFileDataSource379A1C97Name"
-            ]
-          },
           "referencetotransformerrootstackFileNestedStackFileNestedStackResourceA6722CA0OutputstransformerrootstackFileFileTable740FD9FERef": {
             "Fn::GetAtt": [
               "File",
               "Outputs.transformerrootstackFileFileTable740FD9FERef"
+            ]
+          },
+          "referencetotransformerrootstackBankNestedStackBankNestedStackResource8BA72A62OutputstransformerrootstackBankBankDataSourceB7F9519BName": {
+            "Fn::GetAtt": [
+              "Bank",
+              "Outputs.transformerrootstackBankBankDataSourceB7F9519BName"
+            ]
+          },
+          "referencetotransformerrootstackBankNestedStackBankNestedStackResource8BA72A62OutputstransformerrootstackBankBankTableD7C1CDF2Ref": {
+            "Fn::GetAtt": [
+              "Bank",
+              "Outputs.transformerrootstackBankBankTableD7C1CDF2Ref"
             ]
           }
         }

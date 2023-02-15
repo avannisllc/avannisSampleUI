@@ -1,117 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onUpdateBank = /* GraphQL */ `
-  subscription OnUpdateBank(
-    $bank_name: String
-    $active: Boolean
-    $formatted_bank_name: String
-  ) {
-    onUpdateBank(
-      bank_name: $bank_name
-      active: $active
-      formatted_bank_name: $formatted_bank_name
-    ) {
-      bank_name
-      active
-      formatted_bank_name
-      ui_display_map
-    }
-  }
-`;
-export const onCreateQuotas = /* GraphQL */ `
-  subscription OnCreateQuotas(
-    $bank_name: String
-    $uuid: String
-    $completed: Int
-    $date_group: String
-    $appi: String
-  ) {
-    onCreateQuotas(
-      bank_name: $bank_name
-      uuid: $uuid
-      completed: $completed
-      date_group: $date_group
-      appi: $appi
-    ) {
-      bank_name
-      uuid
-      completed
-      date_group
-      appi
-      available
-      available_both
-      dwh_updated_time_utc
-      branch_name
-      Methodology
-      sent
-      survey_type
-      Goal
-    }
-  }
-`;
-export const onUpdateQuotas = /* GraphQL */ `
-  subscription OnUpdateQuotas(
-    $bank_name: String
-    $uuid: String
-    $completed: Int
-    $date_group: String
-    $appi: String
-  ) {
-    onUpdateQuotas(
-      bank_name: $bank_name
-      uuid: $uuid
-      completed: $completed
-      date_group: $date_group
-      appi: $appi
-    ) {
-      bank_name
-      uuid
-      completed
-      date_group
-      appi
-      available
-      available_both
-      dwh_updated_time_utc
-      branch_name
-      Methodology
-      sent
-      survey_type
-      Goal
-    }
-  }
-`;
-export const onDeleteQuotas = /* GraphQL */ `
-  subscription OnDeleteQuotas(
-    $bank_name: String
-    $uuid: String
-    $completed: Int
-    $date_group: String
-    $appi: String
-  ) {
-    onDeleteQuotas(
-      bank_name: $bank_name
-      uuid: $uuid
-      completed: $completed
-      date_group: $date_group
-      appi: $appi
-    ) {
-      bank_name
-      uuid
-      completed
-      date_group
-      appi
-      available
-      available_both
-      dwh_updated_time_utc
-      branch_name
-      Methodology
-      sent
-      survey_type
-      Goal
-    }
-  }
-`;
 export const onCreateInterviews = /* GraphQL */ `
   subscription OnCreateInterviews(
     $bank_name: String
@@ -137,28 +26,35 @@ export const onCreateInterviews = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateInterviews = /* GraphQL */ `
-  subscription OnUpdateInterviews(
+export const onCreateQuotas = /* GraphQL */ `
+  subscription OnCreateQuotas(
+    $appi: String
     $bank_name: String
-    $external_data_id: String
-    $form_data: String
-    $updated_count: Int
-    $updated_timestamp: String
+    $completed: Int
+    $date_group: String
+    $uuid: String
   ) {
-    onUpdateInterviews(
+    onCreateQuotas(
+      appi: $appi
       bank_name: $bank_name
-      external_data_id: $external_data_id
-      form_data: $form_data
-      updated_count: $updated_count
-      updated_timestamp: $updated_timestamp
+      completed: $completed
+      date_group: $date_group
+      uuid: $uuid
     ) {
+      Goal
+      Methodology
+      appi
+      qppi
+      available
+      available_both
       bank_name
-      external_data_id
-      form_data
-      updated_count
-      updated_timestamp
-      survey_date_submitted
-      selected
+      branch_name
+      completed
+      date_group
+      dwh_updated_time_utc
+      sent
+      survey_type
+      uuid
     }
   }
 `;
@@ -184,6 +80,113 @@ export const onDeleteInterviews = /* GraphQL */ `
       updated_timestamp
       survey_date_submitted
       selected
+    }
+  }
+`;
+export const onDeleteQuotas = /* GraphQL */ `
+  subscription OnDeleteQuotas(
+    $appi: String
+    $bank_name: String
+    $completed: Int
+    $date_group: String
+    $uuid: String
+  ) {
+    onDeleteQuotas(
+      appi: $appi
+      bank_name: $bank_name
+      completed: $completed
+      date_group: $date_group
+      uuid: $uuid
+    ) {
+      Goal
+      Methodology
+      appi
+      qppi
+      available
+      available_both
+      bank_name
+      branch_name
+      completed
+      date_group
+      dwh_updated_time_utc
+      sent
+      survey_type
+      uuid
+    }
+  }
+`;
+export const onUpdateBank = /* GraphQL */ `
+  subscription OnUpdateBank(
+    $active: Boolean
+    $bank_name: String
+    $formatted_bank_name: String
+  ) {
+    onUpdateBank(
+      active: $active
+      bank_name: $bank_name
+      formatted_bank_name: $formatted_bank_name
+    ) {
+      active
+      bank_name
+      formatted_bank_name
+      ui_display_map
+    }
+  }
+`;
+export const onUpdateInterviews = /* GraphQL */ `
+  subscription OnUpdateInterviews(
+    $bank_name: String
+    $external_data_id: String
+    $form_data: String
+    $updated_count: Int
+    $survey_date_submitted: String
+  ) {
+    onUpdateInterviews(
+      bank_name: $bank_name
+      external_data_id: $external_data_id
+      form_data: $form_data
+      updated_count: $updated_count
+      survey_date_submitted: $survey_date_submitted
+    ) {
+      bank_name
+      external_data_id
+      form_data
+      updated_count
+      updated_timestamp
+      survey_date_submitted
+      selected
+    }
+  }
+`;
+export const onUpdateQuotas = /* GraphQL */ `
+  subscription OnUpdateQuotas(
+    $appi: String
+    $bank_name: String
+    $completed: Int
+    $date_group: String
+    $uuid: String
+  ) {
+    onUpdateQuotas(
+      appi: $appi
+      bank_name: $bank_name
+      completed: $completed
+      date_group: $date_group
+      uuid: $uuid
+    ) {
+      Goal
+      Methodology
+      appi
+      qppi
+      available
+      available_both
+      bank_name
+      branch_name
+      completed
+      date_group
+      dwh_updated_time_utc
+      sent
+      survey_type
+      uuid
     }
   }
 `;

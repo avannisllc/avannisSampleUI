@@ -1,23 +1,325 @@
 
 type Bank {
-  id: ID!
-  smkey: String!
-  name: String!
-  files(filter: ModelFileFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelFileConnection
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+  active: Boolean!
+  bank_name: String!
+  formatted_bank_name: String!
+  ui_display_map: String
 }
 
-type File {
-  id: ID!
-  name: String!
-  bank: Bank
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
-  bankFilesId: ID
+type BankConnection {
+  items: [Bank]
+  nextToken: String
+}
+
+type Interviews {
+  bank_name: String!
+  external_data_id: String!
+  form_data: String!
+  updated_count: Int!
+  updated_timestamp: String!
+}
+
+type InterviewsConnection {
+  items: [Interviews]
+  nextToken: String
+}
+
+type Mutation {
+  createInterviews(input: CreateInterviewsInput!): Interviews
+  createQuotas(input: CreateQuotasInput!): Quotas
+  deleteInterviews(input: DeleteInterviewsInput!): Interviews
+  deleteQuotas(input: DeleteQuotasInput!): Quotas
+  updateBank(input: UpdateBankInput!): Bank
+  updateInterviews(input: UpdateInterviewsInput!): Interviews
+  updateQuotas(input: UpdateQuotasInput!): Quotas
+}
+
+type Query {
+  getInterviews(bank_name: String!, external_data_id: String!): Interviews
+  listBanks(filter: TableBankFilterInput, limit: Int, nextToken: String): BankConnection
+  listInterviews(filter: TableInterviewsFilterInput, limit: Int, nextToken: String): InterviewsConnection
+  listQuotas(filter: TableQuotasFilterInput, limit: Int, nextToken: String): QuotasConnection
+}
+
+type Quotas {
+  Goal: Int
+  Methodology: String!
+  appi: String!
+  qppi: String!
+  available: Int!
+  available_both: Int!
+  bank_name: String!
+  branch_name: String!
+  completed: Int!
+  date_group: String!
+  dwh_updated_time_utc: String!
+  sent: Int!
+  survey_type: String!
+  uuid: String!
+}
+
+type QuotasConnection {
+  items: [Quotas]
+  nextToken: String
+}
+
+type Subscription {
+  onCreateInterviews(bank_name: String, external_data_id: String, form_data: String, updated_count: Int, updated_timestamp: String): Interviews @aws_subscribe(mutations: ["createInterviews"])
+  onCreateQuotas(appi: String, bank_name: String, completed: Int, date_group: String, uuid: String): Quotas @aws_subscribe(mutations: ["createQuotas"])
+  onDeleteInterviews(bank_name: String, external_data_id: String, form_data: String, updated_count: Int, updated_timestamp: String): Interviews @aws_subscribe(mutations: ["deleteInterviews"])
+  onDeleteQuotas(appi: String, bank_name: String, completed: Int, date_group: String, uuid: String): Quotas @aws_subscribe(mutations: ["deleteQuotas"])
+  onUpdateBank(active: Boolean, bank_name: String, formatted_bank_name: String): Bank @aws_subscribe(mutations: ["updateBank"])
+  onUpdateInterviews(bank_name: String, external_data_id: String, form_data: String, updated_count: Int, updated_timestamp: String): Interviews @aws_subscribe(mutations: ["updateInterviews"])
+  onUpdateQuotas(appi: String, bank_name: String, completed: Int, date_group: String, uuid: String): Quotas @aws_subscribe(mutations: ["updateQuotas"])
+}
+
+enum ModelAttributeTypes {
+  _null
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+input CreateBankInput {
+  active: Boolean!
+  bank_name: String!
+  formatted_bank_name: String!
+}
+
+input CreateInterviewsInput {
+  bank_name: String!
+  external_data_id: String!
+  form_data: String!
+  updated_count: Int!
+  updated_timestamp: String!
+}
+
+input CreateQuotasInput {
+  Goal: Int
+  Methodology: String!
+  appi: String
+  qppi: String!
+  available: Int!
+  available_both: Int!
+  bank_name: String!
+  branch_name: String!
+  completed: Int!
+  date_group: String!
+  dwh_updated_time_utc: String!
+  sent: Int!
+  survey_type: String!
+  uuid: String!
+}
+
+input DeleteInterviewsInput {
+  bank_name: String!
+  external_data_id: String!
+}
+
+input DeleteQuotasInput {
+  bank_name: String!
+  uuid: String!
+}
+
+input ModelBooleanInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  eq: Boolean
+  ne: Boolean
+}
+
+input ModelFloatInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  between: [Float]
+  eq: Float
+  ge: Float
+  gt: Float
+  le: Float
+  lt: Float
+  ne: Float
+}
+
+input ModelIDInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  beginsWith: ID
+  between: [ID]
+  contains: ID
+  eq: ID
+  ge: ID
+  gt: ID
+  le: ID
+  lt: ID
+  ne: ID
+  notContains: ID
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  between: [Int]
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+}
+
+input ModelSizeInput {
+  between: [Int]
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
 }
 
 input ModelStringInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  beginsWith: String
+  between: [String]
+  contains: String
+  eq: String
+  ge: String
+  gt: String
+  le: String
+  lt: String
+  ne: String
+  notContains: String
+  size: ModelSizeInput
+}
+
+input TableBankFilterInput {
+  active: TableBooleanFilterInput
+  bank_name: TableStringFilterInput
+  formatted_bank_name: TableStringFilterInput
+}
+
+input TableBooleanFilterInput {
+  eq: Boolean
+  ne: Boolean
+}
+
+input TableFloatFilterInput {
+  between: [Float]
+  contains: Float
+  eq: Float
+  ge: Float
+  gt: Float
+  le: Float
+  lt: Float
+  ne: Float
+  notContains: Float
+}
+
+input TableIDFilterInput {
+  beginsWith: ID
+  between: [ID]
+  contains: ID
+  eq: ID
+  ge: ID
+  gt: ID
+  le: ID
+  lt: ID
+  ne: ID
+  notContains: ID
+}
+
+input TableIntFilterInput {
+  between: [Int]
+  contains: Int
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+  notContains: Int
+}
+
+input TableInterviewsFilterInput {
+  bank_name: TableStringFilterInput
+  external_data_id: TableStringFilterInput
+  form_data: TableStringFilterInput
+  updated_count: TableIntFilterInput
+  updated_timestamp: TableStringFilterInput
+}
+
+input TableQuotasFilterInput {
+  Goal: TableStringFilterInput
+  Methodology: TableStringFilterInput
+  appi: TableStringFilterInput
+  qppi: TableStringFilterInput
+  available: TableIntFilterInput
+  bank_name: TableStringFilterInput
+  branch_name: TableStringFilterInput
+  completed: TableIntFilterInput
+  date_group: TableStringFilterInput
+  dwh_updated_time_utc: TableStringFilterInput
+  sent: TableIntFilterInput
+  survey_type: TableStringFilterInput
+  uuid: TableStringFilterInput
+}
+
+input TableStringFilterInput {
+  beginsWith: String
+  between: [String]
+  contains: String
+  eq: String
+  ge: String
+  gt: String
+  le: String
+  lt: String
+  ne: String
+  notContains: String
+}
+
+input UpdateBankInput {
+  active: Boolean
+  bank_name: String!
+  formatted_bank_name: String
+}
+
+input UpdateInterviewsInput {
+  bank_name: String!
+  external_data_id: String!
+  form_data: String
+  updated_count: Int
+  updated_timestamp: String
+}
+
+input UpdateQuotasInput {
+  Methodology: String
+  appi: String
+  available: Int
+  available_both: Int
+  bank_name: String!
+  branch_name: String
+  completed: Int
+  date_group: String
+  dwh_updated_time_utc: String
+  sent: Int
+  survey_type: String
+  uuid: String!
+}
+
+input ModelSubscriptionStringInput {
   ne: String
   eq: String
   le: String
@@ -28,12 +330,11 @@ input ModelStringInput {
   notContains: String
   between: [String]
   beginsWith: String
-  attributeExists: Boolean
-  attributeType: ModelAttributeTypes
-  size: ModelSizeInput
+  in: [String]
+  notIn: [String]
 }
 
-input ModelIntInput {
+input ModelSubscriptionIntInput {
   ne: Int
   eq: Int
   le: Int
@@ -41,11 +342,11 @@ input ModelIntInput {
   ge: Int
   gt: Int
   between: [Int]
-  attributeExists: Boolean
-  attributeType: ModelAttributeTypes
+  in: [Int]
+  notIn: [Int]
 }
 
-input ModelFloatInput {
+input ModelSubscriptionFloatInput {
   ne: Float
   eq: Float
   le: Float
@@ -53,18 +354,16 @@ input ModelFloatInput {
   ge: Float
   gt: Float
   between: [Float]
-  attributeExists: Boolean
-  attributeType: ModelAttributeTypes
+  in: [Float]
+  notIn: [Float]
 }
 
-input ModelBooleanInput {
+input ModelSubscriptionBooleanInput {
   ne: Boolean
   eq: Boolean
-  attributeExists: Boolean
-  attributeType: ModelAttributeTypes
 }
 
-input ModelIDInput {
+input ModelSubscriptionIDInput {
   ne: ID
   eq: ID
   le: ID
@@ -75,137 +374,7 @@ input ModelIDInput {
   notContains: ID
   between: [ID]
   beginsWith: ID
-  attributeExists: Boolean
-  attributeType: ModelAttributeTypes
-  size: ModelSizeInput
-}
-
-enum ModelAttributeTypes {
-  binary
-  binarySet
-  bool
-  list
-  map
-  number
-  numberSet
-  string
-  stringSet
-  _null
-}
-
-input ModelSizeInput {
-  ne: Int
-  eq: Int
-  le: Int
-  lt: Int
-  ge: Int
-  gt: Int
-  between: [Int]
-}
-
-enum ModelSortDirection {
-  ASC
-  DESC
-}
-
-type ModelBankConnection {
-  items: [Bank]!
-  nextToken: String
-}
-
-input ModelBankFilterInput {
-  id: ModelIDInput
-  smkey: ModelStringInput
-  name: ModelStringInput
-  and: [ModelBankFilterInput]
-  or: [ModelBankFilterInput]
-  not: ModelBankFilterInput
-}
-
-type Query {
-  getBank(id: ID!): Bank
-  listBanks(filter: ModelBankFilterInput, limit: Int, nextToken: String): ModelBankConnection
-  getFile(id: ID!): File
-  listFiles(filter: ModelFileFilterInput, limit: Int, nextToken: String): ModelFileConnection
-}
-
-input ModelBankConditionInput {
-  smkey: ModelStringInput
-  name: ModelStringInput
-  and: [ModelBankConditionInput]
-  or: [ModelBankConditionInput]
-  not: ModelBankConditionInput
-}
-
-input CreateBankInput {
-  id: ID
-  smkey: String!
-  name: String!
-}
-
-input UpdateBankInput {
-  id: ID!
-  smkey: String
-  name: String
-}
-
-input DeleteBankInput {
-  id: ID!
-}
-
-type Mutation {
-  createBank(input: CreateBankInput!, condition: ModelBankConditionInput): Bank
-  updateBank(input: UpdateBankInput!, condition: ModelBankConditionInput): Bank
-  deleteBank(input: DeleteBankInput!, condition: ModelBankConditionInput): Bank
-  createFile(input: CreateFileInput!, condition: ModelFileConditionInput): File
-  updateFile(input: UpdateFileInput!, condition: ModelFileConditionInput): File
-  deleteFile(input: DeleteFileInput!, condition: ModelFileConditionInput): File
-}
-
-type Subscription {
-  onCreateBank: Bank @aws_subscribe(mutations: ["createBank"])
-  onUpdateBank: Bank @aws_subscribe(mutations: ["updateBank"])
-  onDeleteBank: Bank @aws_subscribe(mutations: ["deleteBank"])
-  onCreateFile: File @aws_subscribe(mutations: ["createFile"])
-  onUpdateFile: File @aws_subscribe(mutations: ["updateFile"])
-  onDeleteFile: File @aws_subscribe(mutations: ["deleteFile"])
-}
-
-type ModelFileConnection {
-  items: [File]!
-  nextToken: String
-}
-
-input ModelFileFilterInput {
-  id: ModelIDInput
-  name: ModelStringInput
-  and: [ModelFileFilterInput]
-  or: [ModelFileFilterInput]
-  not: ModelFileFilterInput
-  bankFilesId: ModelIDInput
-}
-
-input ModelFileConditionInput {
-  name: ModelStringInput
-  and: [ModelFileConditionInput]
-  or: [ModelFileConditionInput]
-  not: ModelFileConditionInput
-  bankFilesId: ModelIDInput
-}
-
-input CreateFileInput {
-  id: ID
-  name: String!
-  bankFilesId: ID
-}
-
-input UpdateFileInput {
-  id: ID!
-  name: String
-  bankFilesId: ID
-}
-
-input DeleteFileInput {
-  id: ID!
+  in: [ID]
+  notIn: [ID]
 }
 

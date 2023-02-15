@@ -1,5 +1,5 @@
 {
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"7.6.19\",\"stackType\":\"storage-S3\",\"metadata\":{}}",
+  "Description": "S3 Resource for AWS Amplify CLI",
   "AWSTemplateFormatVersion": "2010-09-09",
   "Parameters": {
     "env": {
@@ -284,31 +284,33 @@
       "Properties": {
         "PolicyDocument": {
           "Version": "2012-10-17",
-          "Statement": {
-            "Effect": "Allow",
-            "Action": {
-              "Fn::Split": [
-                ",",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": {
+                "Fn::Split": [
+                  ",",
+                  {
+                    "Ref": "s3PermissionsAuthenticatedPublic"
+                  }
+                ]
+              },
+              "Resource": [
                 {
-                  "Ref": "s3PermissionsAuthenticatedPublic"
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:s3:::",
+                      {
+                        "Ref": "S3Bucket"
+                      },
+                      "/public/*"
+                    ]
+                  ]
                 }
               ]
-            },
-            "Resource": [
-              {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:aws:s3:::",
-                    {
-                      "Ref": "S3Bucket"
-                    },
-                    "/public/*"
-                  ]
-                ]
-              }
-            ]
-          }
+            }
+          ]
         },
         "PolicyName": {
           "Ref": "s3PublicPolicy"
@@ -329,31 +331,33 @@
       "Properties": {
         "PolicyDocument": {
           "Version": "2012-10-17",
-          "Statement": {
-            "Effect": "Allow",
-            "Action": {
-              "Fn::Split": [
-                ",",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": {
+                "Fn::Split": [
+                  ",",
+                  {
+                    "Ref": "s3PermissionsAuthenticatedProtected"
+                  }
+                ]
+              },
+              "Resource": [
                 {
-                  "Ref": "s3PermissionsAuthenticatedProtected"
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:s3:::",
+                      {
+                        "Ref": "S3Bucket"
+                      },
+                      "/protected/${cognito-identity.amazonaws.com:sub}/*"
+                    ]
+                  ]
                 }
               ]
-            },
-            "Resource": [
-              {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:aws:s3:::",
-                    {
-                      "Ref": "S3Bucket"
-                    },
-                    "/protected/${cognito-identity.amazonaws.com:sub}/*"
-                  ]
-                ]
-              }
-            ]
-          }
+            }
+          ]
         },
         "PolicyName": {
           "Ref": "s3ProtectedPolicy"
@@ -374,31 +378,33 @@
       "Properties": {
         "PolicyDocument": {
           "Version": "2012-10-17",
-          "Statement": {
-            "Effect": "Allow",
-            "Action": {
-              "Fn::Split": [
-                ",",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": {
+                "Fn::Split": [
+                  ",",
+                  {
+                    "Ref": "s3PermissionsAuthenticatedPrivate"
+                  }
+                ]
+              },
+              "Resource": [
                 {
-                  "Ref": "s3PermissionsAuthenticatedPrivate"
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:s3:::",
+                      {
+                        "Ref": "S3Bucket"
+                      },
+                      "/private/${cognito-identity.amazonaws.com:sub}/*"
+                    ]
+                  ]
                 }
               ]
-            },
-            "Resource": [
-              {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:aws:s3:::",
-                    {
-                      "Ref": "S3Bucket"
-                    },
-                    "/private/${cognito-identity.amazonaws.com:sub}/*"
-                  ]
-                ]
-              }
-            ]
-          }
+            }
+          ]
         },
         "PolicyName": {
           "Ref": "s3PrivatePolicy"
@@ -419,31 +425,33 @@
       "Properties": {
         "PolicyDocument": {
           "Version": "2012-10-17",
-          "Statement": {
-            "Effect": "Allow",
-            "Action": {
-              "Fn::Split": [
-                ",",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": {
+                "Fn::Split": [
+                  ",",
+                  {
+                    "Ref": "s3PermissionsAuthenticatedUploads"
+                  }
+                ]
+              },
+              "Resource": [
                 {
-                  "Ref": "s3PermissionsAuthenticatedUploads"
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:s3:::",
+                      {
+                        "Ref": "S3Bucket"
+                      },
+                      "/uploads/*"
+                    ]
+                  ]
                 }
               ]
-            },
-            "Resource": [
-              {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:aws:s3:::",
-                    {
-                      "Ref": "S3Bucket"
-                    },
-                    "/uploads/*"
-                  ]
-                ]
-              }
-            ]
-          }
+            }
+          ]
         },
         "PolicyName": {
           "Ref": "s3UploadsPolicy"
