@@ -72,7 +72,7 @@
         "IdentityPoolName": "appjs504fdd16_identitypool_504fdd16__dev",
         "UserPoolName": "appjs504fdd16_userpool_504fdd16"
       },
-      "lastPushTimeStamp": "2023-02-15T16:09:20.686Z",
+      "lastPushTimeStamp": "2023-02-16T17:56:53.737Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-appjs-dev-223730-deployment/amplify-cfn-templates/auth/appjs504fdd16-cloudformation-template.json",
         "logicalId": "authappjs504fdd16"
@@ -85,7 +85,7 @@
       "service": "amplifyhosting",
       "type": "manual",
       "output": {},
-      "lastPushTimeStamp": "2023-02-15T16:09:20.687Z",
+      "lastPushTimeStamp": "2023-02-16T17:56:53.739Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-appjs-dev-223730-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
         "logicalId": "hostingamplifyhosting"
@@ -101,7 +101,7 @@
         "BucketName": "avannis-data-processing223730-dev",
         "Region": "us-west-2"
       },
-      "lastPushTimeStamp": "2023-02-15T16:09:22.050Z",
+      "lastPushTimeStamp": "2023-02-16T17:56:55.717Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-appjs-dev-223730-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
         "logicalId": "storages3storage"
