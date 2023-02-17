@@ -13,30 +13,22 @@
     }
   },
   "api": {
-    "appjs": {
+    "appjs-prod": {
+      "service": "AppSync",
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
-            "apiKeyConfig": {
-              "apiKeyExpirationDate": "2022-04-07T05:10:04.803Z",
-              "apiKeyExpirationDays": 20,
-              "description": "appjs"
-            },
             "authenticationType": "API_KEY"
-          }
+          },
+          "additionalAuthenticationProviders": null
         },
-        "GraphQLAPIIdOutput": "goko7k3b65ervnmydbt7ovkila",
-        "GraphQLAPIEndpointOutput": "https://rwedm6y4j5gvne7a47de3ejrci.appsync-api.us-west-2.amazonaws.com/graphql",
-        "GraphQLAPIKeyOutput": "da2-yiobptlsi5galjv6ezbs4b46aa"
+        "GraphQLAPIIdOutput": "iokfp6lzifannce2inzwmqu3ti",
+        "GraphQLAPIEndpointOutput": "https://nsjmzdkii5ebdcnt74iszr6la4.appsync-api.us-west-2.amazonaws.com/graphql",
+        "name": "appjs-prod",
+        "region": "us-west-2",
+        "GraphQLAPIKeyOutput": "da2-kqnefaklwng4tpktl7snt7c7nq"
       },
-      "providerPlugin": "awscloudformation",
-      "service": "AppSync",
-      "lastPushTimeStamp": "2023-02-15T16:09:20.684Z",
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-appjs-dev-223730-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-        "logicalId": "apiappjs"
-      }
+      "lastPushTimeStamp": "2023-02-17T14:54:16.060Z"
     }
   },
   "auth": {
@@ -72,7 +64,7 @@
         "IdentityPoolName": "appjs504fdd16_identitypool_504fdd16__dev",
         "UserPoolName": "appjs504fdd16_userpool_504fdd16"
       },
-      "lastPushTimeStamp": "2023-02-16T17:56:53.737Z",
+      "lastPushTimeStamp": "2023-02-17T14:56:21.137Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-appjs-dev-223730-deployment/amplify-cfn-templates/auth/appjs504fdd16-cloudformation-template.json",
         "logicalId": "authappjs504fdd16"
@@ -85,7 +77,7 @@
       "service": "amplifyhosting",
       "type": "manual",
       "output": {},
-      "lastPushTimeStamp": "2023-02-16T17:56:53.739Z",
+      "lastPushTimeStamp": "2023-02-17T14:56:21.139Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-appjs-dev-223730-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
         "logicalId": "hostingamplifyhosting"
@@ -101,7 +93,7 @@
         "BucketName": "avannis-data-processing223730-dev",
         "Region": "us-west-2"
       },
-      "lastPushTimeStamp": "2023-02-16T17:56:55.717Z",
+      "lastPushTimeStamp": "2023-02-17T14:56:27.187Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-appjs-dev-223730-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
         "logicalId": "storages3storage"

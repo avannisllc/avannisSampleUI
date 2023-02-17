@@ -1,23 +1,5 @@
 {
-  "api": {
-    "appjs": {
-      "output": {
-        "authConfig": {
-          "additionalAuthenticationProviders": [],
-          "defaultAuthentication": {
-            "apiKeyConfig": {
-              "apiKeyExpirationDate": "2022-04-07T05:10:04.803Z",
-              "apiKeyExpirationDays": 20,
-              "description": "appjs"
-            },
-            "authenticationType": "API_KEY"
-          }
-        }
-      },
-      "providerPlugin": "awscloudformation",
-      "service": "AppSync"
-    }
-  },
+  "api": {},
   "auth": {
     "appjs504fdd16": {
       "customAuth": false,

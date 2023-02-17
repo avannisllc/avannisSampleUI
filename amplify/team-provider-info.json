@@ -20,6 +20,9 @@
           "appId": "d296doj5ygv5zw",
           "type": "manual"
         }
+      },
+      "storage": {
+        "s3storage": {}
       }
     }
   },

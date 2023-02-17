@@ -1,6 +1,0 @@
-{
-  "AppSyncApiName": "appjs",
-  "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2022-03-18T05:10:11.161Z"
-}
