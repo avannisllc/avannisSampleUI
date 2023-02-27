@@ -1,6 +1,6 @@
 import React from 'react';
-// import FileDropdown from './FileDropdown';
 import FileDropdown from './../FileDropdown';
+
 
 const AcceptedFiles = (props) => {
   return (

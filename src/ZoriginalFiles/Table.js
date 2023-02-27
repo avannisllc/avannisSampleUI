@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
+import Files from './Containers/FilesContainer/FilesDashboard/Files'
 import Files from './Files'
-import MutliFileModalDelete from './MutliFileModalDelete';
 import AcceptedFilesHeader from './AcceptedFilesHeader';
 import RejectedFilesHeader from './RejectedFilesHeader';
 import { Alert } from 'react-bootstrap'

@@ -1,6 +1,6 @@
 import React from 'react';
-import FileDropdown from './FileDropdown';
-import FileErrorModal from './FileErrorModal';
+import FileDropdown from './../FileDropdown';
+import FileErrorModal from './../Modals/FileErrorModal';
 
 const RejectedFiles = (props) => {
   return (

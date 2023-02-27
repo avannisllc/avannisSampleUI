@@ -1,5 +1,5 @@
 import React from 'react';
-import MutliFileModalDelete from './MutliFileModalDelete';
+import MutliFileModalDelete from './../Modals/MutliFileModalDelete';
 
 const AcceptedFilesHeader = (props) => {
   return (

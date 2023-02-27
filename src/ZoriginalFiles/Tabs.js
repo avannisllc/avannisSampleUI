@@ -1,10 +1,11 @@
 import { Tab } from '@headlessui/react'
 import React from 'react';
 import './App.css';
+import Interviews from './Interviews';
 import InterviewsHeader from './InterviewsHeader';
-import Table from './Table'
-import Interviews from './Interviews'
-import QuotaCards from './QuotaCards'
+import QuotaCards from './QuotaCards';
+import Table from './Table';
+
 
 class Tabs extends React.Component {
   constructor(props){
