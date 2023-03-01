@@ -1,5 +1,5 @@
 import React from 'react';
-import './../../App.css';
+import './../../../App.css';
 import { Alert } from 'react-bootstrap'
 import DatePicker from 'react-datepicker';
 import InteviewsHeaderOptions from './InteviewsHeaderOptions'

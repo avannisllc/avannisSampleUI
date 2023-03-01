@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Dropdown } from 'react-bootstrap'
 import QuotaSurveyDropdownItem from './QuotaSurveyDropdownItem'
-import xIcon from './../../images/circle-xmark-regular.svg'
-import './../../App.css';
+import xIcon from './../../../images/circle-xmark-regular.svg'
+import './../../../App.css';
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <span

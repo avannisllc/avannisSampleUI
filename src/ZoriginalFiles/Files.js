@@ -51,7 +51,9 @@ class Files extends React.Component {
           handleButtonClick={this.props.handleButtonClick} 
           clickedOutside={this.props.clickedOutside} 
           handleClickOutside={this.props.handleClickOutside} 
-          open={this.props.open} file={this.props.file} bank={this.props.bank}
+          open={this.props.open} 
+          file={this.props.file} 
+          bank={this.props.bank}
         />
       }
       {this.props.displayAcceptedFiles &&

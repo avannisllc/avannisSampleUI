@@ -1,7 +1,7 @@
 import React from 'react';
 import FileModalDelete from './Modals/FileModalDelete';
 // import Amplify, { API , Storage, Auth } from 'aws-amplify';
-import './../../App.css';
+import './../../../App.css';
 Storage.AWSS3 = {
   bucket: 'avannis-data-processing', //REQUIRED -  Amazon S3 bucket name
   region: 'us-west-2', //OPTIONAL -  Amazon service region

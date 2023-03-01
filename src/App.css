@@ -329,7 +329,7 @@ select,
   width: auto;
   opacity: unset;
   border-radius: 10px;
-  height: 40px;
+  height: 38px;
   padding: 5px;
   background-color: white;
   border-style: solid;
@@ -1346,9 +1346,10 @@ Styling for live push
   top: 8px;
   right: 15px;
   outline: 0.5px solid #EFEFEF;
-  border: 4px solid #697582;
+  /* border: 4px solid #697582; */
   background-color: white;
   padding: 10px;
+  border-radius: 5px;
   /* border-radius: 5px; */
 }
 

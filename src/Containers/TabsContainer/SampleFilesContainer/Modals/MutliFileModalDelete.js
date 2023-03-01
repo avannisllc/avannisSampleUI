@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'react-bootstrap'; 
+import { Modal } from 'react-bootstrap'; 
+import {Button} from 'reactstrap';
 
 const MutliFileModalDelete = (props) => {
   const [show, setShow] = useState(false);
@@ -8,7 +9,13 @@ const MutliFileModalDelete = (props) => {
   const handleShow = () => setShow(true);
   return (
     <>
-      <button className='bankButton' onClick={handleShow}>Delete Selected Files</button>
+      <Button 
+        color='white'
+        className='bankButton' 
+        onClick={handleShow}
+      >
+        Delete Selected Files
+      </Button>
       {!props.selectedFiles[0] && 
         <Modal style={{textAlign: 'center'}} aria-labelledby="contained-modal-title-vcenter" show={show} onHide={handleClose} centered>
           <Modal.Header >

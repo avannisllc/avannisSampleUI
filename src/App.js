@@ -5,11 +5,13 @@ import { listBanks, listInterviews, listQuotas } from './graphql/queries';
 import { onUpdateQuotas } from './graphql/subscriptions';
 import { updateInterviews } from './graphql/mutations';
 import './App.css';
-import Header from './Header';
+// import Header from './Header';
+import Header from './Components/Header';
 import _ from 'lodash';
-import Bank from './Bank';
+// import Bank from './Bank';
+import Bank from './Components/Banks/Bank';
 // import InterviewsDropdown from './InterviewsDropdown';
-import InterviewsDropdown from './Containers/InterviewsConatiner/InterviewsDropdown';
+import InterviewsDropdown from './Containers/TabsContainer/InterviewsConatiner/InterviewsDropdown';
 import axios from 'axios';
 import { S3Client, GetObjectCommand, DeleteObjectsCommand, PutObjectCommand } from '@aws-sdk/client-s3'; // ES Modules import
 import '@aws-amplify/ui-react/styles.css';
@@ -884,13 +886,22 @@ class App extends React.Component {
 									processed_date: this.reverseDate(file[fileName].processed_date)
 								});
 							} else {
+								let file_duped_date = '';
+								let stage = 'PRE DUPE';
+								if (file[fileName].file_duped_date !== 'nan') {
+									file_duped_date = file[fileName].file_duped_date
+									stage = 'DE DUPED'
+								}
+								
 								bankInfo[0].files.items.accepted.push({
 									name: fileName,
 									id: id,
-									location: file[fileName].location,
+									// location: file[fileName].location,
+									location: stage,
 									cloudwatch_log: file[fileName].cloudwatch_log,
 									delete_log_file: file[fileName].delete_log_file,
-									processed_date: this.reverseDate(file[fileName].processed_date)
+									processed_date: this.reverseDate(file[fileName].processed_date),
+									file_duped_date: file_duped_date
 								});
 							}
 						});

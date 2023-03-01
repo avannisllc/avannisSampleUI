@@ -5,7 +5,7 @@ import QuotaMethodFilter from './QuotaMethodFilter';
 import QuotaSurveyFilter from './QuotaSurveyFilter';
 import _ from 'lodash';
 import 'react-datasheet/lib/react-datasheet.css';
-import './../../App.css';
+import './../../../App.css';
 
 
 class QuotaCards extends React.Component {

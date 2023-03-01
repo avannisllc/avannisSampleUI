@@ -1,6 +1,6 @@
 import React from 'react';
 import { ToggleButtonGroup, Button } from 'react-bootstrap'
-import './../../App.css';
+import './../../../App.css';
 
 
 function QuotaMethodFilter(props) {

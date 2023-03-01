@@ -3,6 +3,7 @@ import FileDropdown from './../FileDropdown';
 
 
 const AcceptedFiles = (props) => {
+  
   return (
     <>
       <tr style={{width: '100%'}}>
@@ -46,12 +47,15 @@ const AcceptedFiles = (props) => {
             {props.file.processed_date}
         </td>
         <td style={{textAlign: 'center', verticalAlign: 'middle', textTransform: 'uppercase'}}>
+            {props.file.file_duped_date}
+        </td>
+        <td style={{textAlign: 'center', verticalAlign: 'middle', textTransform: 'uppercase'}}>
             <div  style={{verticleAlign: "middle"}}>
             {props.file.name === "No files available" &&
               <span>N/A</span>
             }
             {props.file.name !== "No files available" &&
-              <span>Accepted</span>
+              <span>{props.file.location}</span>
             }
             </div>
         </td>

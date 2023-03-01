@@ -1,6 +1,6 @@
 import React from 'react';
-import './App.css';
-import Tabs from './Components/Tabs'
+import './../../App.css';
+import Tabs from './../../Containers/TabsContainer/TabsDashboard/Tabs'
 import DeactivateBankBtn from './DeactivateBankBtn'
 
 class Bank extends React.Component {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Tab } from '@headlessui/react'
-import './../App.css';
-import Interviews from './../Containers/InterviewsConatiner/Interviews';
-import InterviewsHeader from './../Containers/InterviewsConatiner/InterviewsHeader';
-import Table from './../Containers/SampleFilesContainer/SampleFilesDashboard/Table';
-import QuotaCards from './../Containers/QuotasContainer/QuotaCards';
+import './../../../App.css';
+import Interviews from './../InterviewsConatiner/Interviews';
+import InterviewsHeader from './../InterviewsConatiner/InterviewsHeader';
+import Table from './../SampleFilesContainer/SampleFilesDashboard/Table';
+import QuotaCards from './../QuotasContainer/QuotaCards';
 
 
 class Tabs extends React.Component {

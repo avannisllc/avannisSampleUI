@@ -1,5 +1,5 @@
 import React from 'react';
-import './../../../App.css';
+import './../../../../App.css';
 import FileDropdown from './../FileDropdown';
 import FileModal from './FileErrorModal';
 import AcceptedFiles from './../AcceptedFiles/AcceptedFiles';
@@ -31,6 +31,8 @@ class Files extends React.Component {
       checked: !this.state.checked
     })
   }
+
+
 
   render () {
     return (
