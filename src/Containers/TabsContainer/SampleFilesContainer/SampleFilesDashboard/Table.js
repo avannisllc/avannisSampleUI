@@ -2,8 +2,7 @@ import React from 'react';
 import './../../../../App.css';
 import Files from './../Modals/SampleFilesModal';
 import MutliFileModalDelete from './../Modals/MutliFileModalDelete';
-import AcceptedFilesHeader from './../AcceptedFiles/AcceptedFilesHeader';
-import RejectedFilesHeader from './../RejectedFiles/RejectedFilesHeader';
+import SampleFilesHeader from './../SampleFiles/SampleFilesHeader';
 import { Alert } from 'react-bootstrap'
 
 class Table extends React.Component {
@@ -14,7 +13,7 @@ class Table extends React.Component {
       selectAll: false,
       files: this.props.files,
       selectedFiles: [],
-      acceptedFiles:this.props.files.items.accepted,
+      acceptedFiles:this.props.files.sampleData,
       fileDropdownSelected:'All Files',
       dropdownOpen: false,
       tableUploadingFile: this.props.tableUploadingFile,
@@ -32,6 +31,7 @@ class Table extends React.Component {
       }
       
     }, 100)
+    console.log(this.props.files, 'files')
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -135,45 +135,27 @@ class Table extends React.Component {
   fileDropdownFilter(selectedDropdownOption){
     if(selectedDropdownOption === 'All Files'){
       this.setState({
-        acceptedFiles: this.props.files.items.accepted,
+        acceptedFiles: this.props.files.sampleData,
         fileDropdownSelected: selectedDropdownOption
       })
-      console.log(this.props.files.items.accepted, 'all files')
     }else{
-      let newArray = this.props.files.items.accepted.filter(file => file.location.toLowerCase() === selectedDropdownOption.toLowerCase())
+      let newArray = this.props.files.sampleData.filter(file => file.stage.toLowerCase() === selectedDropdownOption.toLowerCase())
       this.setState({
         acceptedFiles: newArray,
         fileDropdownSelected: selectedDropdownOption
       })
-      console.log(newArray, 'newArray')
     }
-    console.log(this.state.acceptedFiles, 'acceptedFiles')
   }
 
 
   // Need to add a lambda function that takes the selected files and runs the dupe file scrubber
 
   render (
-    {acceptedFiles}=this.state
+    {acceptedFiles, selectedFiles, dropdownOpen, fileDropdownSelected, tableDeletingFiles, tableUploadingFile}=this.state
   ) {
     return (
       <div style={{width: '100%', display: 'inline'}}> 
-        
-        {!this.props.displayAcceptedFiles &&
-          <RejectedFilesHeader 
-            addToSelectedFiles={this.addToSelectedFiles.bind(this)} 
-            deleteAcceptedFiles={this.props.deleteAcceptedFiles} 
-            files={this.props.files.items.rejected} 
-            filesDisplayedHandler={this.props.filesDisplayedHandler} 
-            fileHandler={this.props.fileHandler} 
-            handleAllChecked={this.props.handleAllChecked}
-            removeSelectedFiles={this.removeSelectedFiles.bind(this)}  
-            selectedFiles={this.state.selectedFiles} 
-            updateAlertHandler={this.updateAlertHandler.bind(this)} 
-          />
-        }
-        {this.props.displayAcceptedFiles &&
-          <AcceptedFilesHeader 
+          <SampleFilesHeader 
             addToSelectedFiles={this.addToSelectedFiles.bind(this)} 
             deleteAcceptedFiles={this.props.deleteAcceptedFiles} 
             files={this.props.files.items.accepted} 
@@ -181,22 +163,23 @@ class Table extends React.Component {
             fileHandler={this.props.fileHandler} 
             handleAllChecked={this.props.handleAllChecked}  
             removeSelectedFiles={this.removeSelectedFiles.bind(this)}  
-            selectedFiles={this.state.selectedFiles} 
+            selectedFiles={selectedFiles} 
             updateAlertHandler={this.updateAlertHandler.bind(this)}
             fileDropdownFilter={this.fileDropdownFilter.bind(this)}
-            fileDropdownSelected={this.state.fileDropdownSelected}
+            fileDropdownSelected={fileDropdownSelected}
             fileFilterDropdowntoggle={this.fileFilterDropdowntoggle.bind(this)}
-            dropdownOpen={this.state.dropdownOpen}
+            dropdownOpen={dropdownOpen}
           />
-        }
+
         <Alert 
           className='tableDeletingFiles' 
           id='tableDeletingFiles' 
-          show={this.state.tableDeletingFiles} 
+          show={tableDeletingFiles} 
           variant="warning"
         > 
           Your files are being deleted! 
         </Alert>
+
         <Alert 
           className='tableDeletingFiles' 
           id='tableDeletingFilesSuccess' 
@@ -205,6 +188,7 @@ class Table extends React.Component {
         > 
           Your files have successfully be deleted! 
         </Alert>
+
         <Alert 
           className='tableDeletingFiles' 
           id='tableDeletingFilesFailure' 
@@ -213,14 +197,16 @@ class Table extends React.Component {
         > 
           Your files did not delete. Please review file format. 
         </Alert>
+
         <Alert 
           className='tableUploadingFile' 
           id='tableUploadingFile' 
-          show={this.state.tableUploadingFile} 
+          show={tableUploadingFile} 
           variant="warning"
         > 
           Your file is uploading! 
         </Alert>
+
         <Alert 
           className='tableUploadingFile' 
           id='tableUploadingFileSuccess' 
@@ -229,6 +215,7 @@ class Table extends React.Component {
         > 
           Your file has successfully uploaded! 
         </Alert>
+
         <Alert 
           className='tableUploadingFile' 
           id='tableUploadingFileFailure' 
@@ -237,16 +224,8 @@ class Table extends React.Component {
         > 
           Your file did not upload. Please review formatting. 
         </Alert>
+
         <table id="table" style={{width: 'inherit', display: 'inline-table'}}>
-        {!this.props.displayAcceptedFiles &&
-          <tr style={{display: 'table-header-group', height: '65px'}}>
-            <th style={{width: '10%', textAlign: 'center'}}>Select</th>
-            <th style={{width: '60%', textAlign: 'justify', textIndent: 10}}>File Name</th> 
-            <th style={{width: '15%', textAlign: 'center'}}>Stage</th>
-            <th style={{textAlign: 'center', width: '15%'}} >File Options</th>
-          </tr>
-        }
-        {this.props.displayAcceptedFiles &&
           <tr style={{display: 'table-header-group', height: '65px'}}>
             <th style={{width: '10%', textAlign: 'center'}}>Select</th>
             <th style={{width: '51%', textAlign: 'justify', textIndent: 10}}>File Name</th> 
@@ -255,44 +234,9 @@ class Table extends React.Component {
             <th style={{width: '12%', textAlign: 'center'}}>Stage</th>
             <th style={{textAlign: 'center', width: '15%'}} >File Options</th>
           </tr>
-        }
-        {/* Mapping through the rejected files and passing them as props*/}
-        {!this.props.displayAcceptedFiles && this.props.files.items.rejected.map((file, index) =>
-          <div 
-            key={index}
-            style={{
-              display: 'table-row-group',
-              marginBottom: 10,
-              marginLeft: 10,
-              width: '100%' 
-            }} 
-          >
-            <Files
-              addToSelectedFiles={this.addToSelectedFiles.bind(this)}
-              allFileSelectHandler={this.props.allFileSelectHandler} 
-              allCheckedSetState={this.props.allCheckedSetState} 
-              bank={this.props.bank} 
-              clickedOutside={this.props.clickedOutside}
-              data={this.props.data}
-              deleteAcceptedFiles={this.props.deleteAcceptedFiles}
-              displayAcceptedFiles={this.props.displayAcceptedFiles}
-              file={file} 
-              fileHandler={this.props.fileHandler}
-              fileSelectHandler={this.props.fileSelectHandler} 
-              handleAllChecked={this.props.handleAllChecked} 
-              handleButtonClick={this.props.handleButtonClick} 
-              handleClickOutside={this.props.handleClickOutside} 
-              open={this.props.open} 
-              phoneScrubHandler={this.props.phoneScrubHandler} 
-              refreshFileLocation={this.props.refreshFileLocation}
-              removeSelectedFiles={this.removeSelectedFiles.bind(this)}
-              selectAllChecked={this.props.selectAllChecked} 
-              updateAlertHandler={this.updateAlertHandler.bind(this)} 
-            />
-          </div>  
-        )}
+
         {/* Mapping through the accepted files and passing them as props*/}
-        {this.props.displayAcceptedFiles && this.state.acceptedFiles.map((file, index) =>
+        {acceptedFiles.map((file, index) =>
           <div 
             key={index}
             style={{

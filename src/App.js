@@ -39,6 +39,7 @@ class App extends React.Component {
 			timeOfLastQuotaRefresh: '',
 			bankInfo: [],
 			displaySubmit: false,
+			singleBankDataLoaded: true,
 			showResults: false,
 			test1: [],
 			test2: [],
@@ -823,6 +824,7 @@ class App extends React.Component {
 	}
 
 	async selectedBank(e, formattedName) {
+		this.setState({singleBankDataLoaded: false})
 		let bank_name = e.name;
 		let name = formattedName;
 		let id = e.id || this.state.bankInfo.id;
@@ -838,7 +840,8 @@ class App extends React.Component {
 					items: {
 						rejected: [],
 						accepted: []
-					}
+					},
+					sampleData:[]
 				}
 			}
 		];
@@ -883,7 +886,19 @@ class App extends React.Component {
 									cloudwatch_log: file[fileName].cloudwatch_log,
 									delete_log_file: file[fileName].delete_log_file,
 									error: file[fileName].error,
-									processed_date: this.reverseDate(file[fileName].processed_date)
+									processed_date: this.reverseDate(file[fileName].processed_date),
+									file_duped_date:''
+								});
+								bankInfo[0].files.sampleData.push({
+									name: fileName,
+									id: id,
+									location: file[fileName].location,
+									cloudwatch_log: file[fileName].cloudwatch_log,
+									delete_log_file: file[fileName].delete_log_file,
+									error: file[fileName].error,
+									processed_date: this.reverseDate(file[fileName].processed_date),
+									file_duped_date:'',
+									stage:file[fileName].location
 								});
 							} else {
 								let file_duped_date = '';
@@ -901,7 +916,20 @@ class App extends React.Component {
 									cloudwatch_log: file[fileName].cloudwatch_log,
 									delete_log_file: file[fileName].delete_log_file,
 									processed_date: this.reverseDate(file[fileName].processed_date),
-									file_duped_date: file_duped_date
+									file_duped_date: file_duped_date,
+									error:''
+								});
+								bankInfo[0].files.sampleData.push({
+									name: fileName,
+									id: id,
+									// location: file[fileName].location,
+									location: stage,
+									cloudwatch_log: file[fileName].cloudwatch_log,
+									delete_log_file: file[fileName].delete_log_file,
+									processed_date: this.reverseDate(file[fileName].processed_date),
+									file_duped_date: file_duped_date,
+									error:'',
+									stage:stage
 								});
 							}
 						});
@@ -910,6 +938,11 @@ class App extends React.Component {
 							name: 'No files available',
 							location: 'accepted'
 						});
+						bankInfo[0].files.sampleData.push({
+							name: 'No files available',
+							location: 'accepted'
+						});
+						
 					}
 					if (rejectedFiles.length > 0) {
 						rejectedFiles.forEach((file) => {
@@ -923,13 +956,36 @@ class App extends React.Component {
 									delete_log_file: file[fileName].delete_log_file,
 									error: file[fileName].error
 								});
+								bankInfo[0].files.sampleData.push({
+									name: fileName,
+									id: id,
+									location: file[fileName].location,
+									cloudwatch_log: file[fileName].cloudwatch_log,
+									delete_log_file: file[fileName].delete_log_file,
+									error: file[fileName].error,
+									file_duped_date:'',
+									processed_date:'',
+									stage:'Rejected'
+								});
 							} else {
 								bankInfo[0].files.items.rejected.push({
 									name: fileName,
 									id: id,
 									location: file[fileName].location,
 									cloudwatch_log: file[fileName].cloudwatch_log,
-									delete_log_file: file[fileName].delete_log_file
+									delete_log_file: file[fileName].delete_log_file,
+									file_duped_date:'',
+									processed_date:''
+								});
+								bankInfo[0].files.sampleData.push({
+									name: fileName,
+									id: id,
+									location: file[fileName].location,
+									cloudwatch_log: file[fileName].cloudwatch_log,
+									delete_log_file: file[fileName].delete_log_file,
+									file_duped_date:'',
+									processed_date:'',
+									stage:'Rejected'
 								});
 							}
 						});
@@ -938,12 +994,17 @@ class App extends React.Component {
 							name: 'No files available',
 							location: 'rejected'
 						});
+						bankInfo[0].files.sampleData.push({
+							name: 'No files available',
+							location: 'rejected'
+						});
 					}
 					this.setState(
 						{
 							bankInfo: bankInfo,
 							selectedBank: name,
-							name: bank_name
+							name: bank_name,
+							singleBankDataLoaded: true
 						} /* this.setLoadedBar() */
 					);
 					this.setLoadedBar();
@@ -960,11 +1021,14 @@ class App extends React.Component {
 					}, 3500);
 					bankInfo[0].files.items.rejected.push({ name: 'No files available', location: 'rejected' });
 					bankInfo[0].files.items.accepted.push({ name: 'No files available', location: 'rejected' });
+					bankInfo[0].files.sampleData.push({ name: 'No files available', location: 'rejected' });
+					bankInfo[0].files.sampleData.push({ name: 'No files available', location: 'accepted' });
 				}
 				this.setState({
 					bankInfo: bankInfo,
 					selectedBank: name,
-					name: bank_name
+					name: bank_name,
+					singleBankDataLoaded: true
 				});
 				this.setLoadedBar();
 			})

@@ -2,7 +2,9 @@ import React from 'react';
 import FileDropdown from './../FileDropdown';
 import FileErrorModal from './../Modals/FileErrorModal';
 
-const RejectedFiles = (props) => {
+
+const SampleFiles = (props) => {
+  
   return (
     <>
       <tr style={{width: '100%'}}>
@@ -43,13 +45,25 @@ const RejectedFiles = (props) => {
             {props.file.name}
         </td>
         <td style={{textAlign: 'center', verticalAlign: 'middle', textTransform: 'uppercase'}}>
-          {props.file.error &&
+            {props.file.processed_date}
+        </td>
+        <td style={{textAlign: 'center', verticalAlign: 'middle', textTransform: 'uppercase'}}>
+            {props.file.file_duped_date}
+        </td>
+        <td style={{textAlign: 'center', verticalAlign: 'middle', textTransform: 'uppercase', fontSize: 15}}>
             <div  style={{verticleAlign: "middle"}}>
-            {props.file.location}
-              <FileErrorModal file={props.file} />
-            </div>}
-          {!props.file.error &&
-            props.file.location}
+            {props.file.name === "No files available" &&
+              <span>N/A</span>
+            }
+            {props.file.stage !== 'Rejected' &&
+              <span>{props.file.location}</span>
+            }
+            {props.file.stage === 'Rejected' &&
+              <div  style={{verticleAlign: "middle"}}>
+                {props.file.location}
+                <FileErrorModal file={props.file} />
+              </div>}
+            </div>
         </td>
         <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
           <FileDropdown 
@@ -69,4 +83,4 @@ const RejectedFiles = (props) => {
   );
 }
 
-export default (RejectedFiles)
+export default (SampleFiles)

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap'; 
+import { ImNotification} from "react-icons/im";
 
 const FileErrorModal = (props) => {
   const [show, setShow] = useState(false);
@@ -8,7 +9,7 @@ const FileErrorModal = (props) => {
   return (
     <>
         <p id='fileLocationParaContainer' onClick={handleShow}>
-          - <span id='fileLocationWError'>Error</span> -
+          <span id='fileLocationWError'> <ImNotification/></span>
         </p>
         <div>
           <Modal style={{textAlign: 'center'}} aria-labelledby="contained-modal-title-vcenter" show={show} onHide={handleClose} centered>

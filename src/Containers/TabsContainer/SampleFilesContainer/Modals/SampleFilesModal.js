@@ -2,8 +2,7 @@ import React from 'react';
 import './../../../../App.css';
 import FileDropdown from './../FileDropdown';
 import FileModal from './FileErrorModal';
-import AcceptedFiles from './../AcceptedFiles/AcceptedFiles';
-import RejectedFiles from './../RejectedFiles/RejectedFiles';
+import SampleFiles from './../SampleFiles/SampleFiles';
 
 
 class Files extends React.Component {
@@ -32,13 +31,10 @@ class Files extends React.Component {
     })
   }
 
-
-
   render () {
     return (
       <>
-      {!this.props.displayAcceptedFiles && 
-        <RejectedFiles 
+        <SampleFiles 
           name={this.props.file.name} 
           value={this.props.file.id} 
           checked={this.state.checked} 
@@ -56,27 +52,6 @@ class Files extends React.Component {
           handleClickOutside={this.props.handleClickOutside} 
           open={this.props.open} file={this.props.file} bank={this.props.bank}
         />
-      }
-      {this.props.displayAcceptedFiles &&
-        <AcceptedFiles 
-          name={this.props.file.name} 
-          value={this.props.file.id} 
-          checked={this.state.checked} 
-          allFileSelectHandler={this.props.allFileSelectHandler} 
-          addToSelectedFiles={this.props.addToSelectedFiles} 
-          removeSelectedFiles={this.props.removeSelectedFiles} 
-          setCheckedState={this.setCheckedState.bind(this)}
-          deleteAcceptedFiles={this.props.deleteAcceptedFiles}
-          updateAlertHandler={this.props.updateAlertHandler} 
-          fileHandler={this.props.fileHandler}
-          refreshFileLocation={this.props.refreshFileLocation}
-          phoneScrubHandler={this.props.phoneScrubHandler} 
-          handleButtonClick={this.props.handleButtonClick} 
-          clickedOutside={this.props.clickedOutside} 
-          handleClickOutside={this.props.handleClickOutside} 
-          open={this.props.open} file={this.props.file} bank={this.props.bank}
-        />
-      }
       </>
     )}
 }

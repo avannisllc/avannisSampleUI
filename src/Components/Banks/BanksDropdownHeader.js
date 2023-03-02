@@ -41,29 +41,35 @@ class BanksDropdownHeader extends React.Component {
   render () {
     let results = "Results (" +  this.props.allBanks.length + ")"
     return (
-      <div style={{maxWdth: 500}} className="bankDropdownContainer">
-        <div className="row" style={{marginRight: 0}}>
-          <div className="col-md-3"></div>
-          <div style={{display: 'inline-flex', flexDirection: 'column'}} className="col-md-6">
+      <div style={{maxWdth: 500, marginLeft: 150}} className="bankDropdownContainer">
+        <div className="row" style={{marginRight: 0, display: 'inline-flex', flexDirection: 'row'}}>
+          <div 
+            style={{display: 'inline-flex', flexDirection: 'row', alignItems: 'center'}} 
+          >
             <div className='resultsDiv' style={{fontWeight: 'bold', color: 'white', marginBottom: 5, marginTop: 5}}>
-              </div>
+            </div>
               <Select 
-              id='dropdownSelector'
-              theme={(theme) => ({
-                ...theme,
-                borderRadius: 0,
-                colors: {
-                  ...theme.colors
-                },
-              })} 
-              placeholder={results} 
-              options={this.state.options} 
-              onChange={(e) => {
-                this.props.selectedBank(e, e.label)
-                this.props.fetchBanks(e)
-                document.getElementById('progressBar').style.zIndex = 0
-              }}/>
-              <ProgressBar id='progressBar' animated now={this.props.loadAmount} />
+                id='dropdownSelector'
+                styles={{marginTop: 10}}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 0,
+                  colors: {
+                    ...theme.colors
+                  },
+                })} 
+                placeholder={results} 
+                options={this.state.options} 
+                onChange={(e) => {
+                  this.props.selectedBank(e, e.label)
+                  this.props.fetchBanks(e)
+                  document.getElementById('progressBar').style.zIndex = 0
+                }}
+              
+              />
+              <div style={{marginLeft: 20, marginBottom:10}}>
+                <ProgressBar id='progressBar' animated now={this.props.loadAmount} />
+              </div>
             </div>
         </div>
         

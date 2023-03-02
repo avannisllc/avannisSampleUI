@@ -9,7 +9,8 @@ import {
 } from 'reactstrap';
 import MutliFileModalDelete from './../Modals/MutliFileModalDelete';
 
-const AcceptedFilesHeader = (props) => {
+
+const SampleFilesHeader = (props) => {
   return (
     <>
       <div className='tableBtns' >
@@ -21,8 +22,9 @@ const AcceptedFilesHeader = (props) => {
           <DropdownToggle color="white" className='bankButton' caret>{props.fileDropdownSelected}</DropdownToggle>
           <DropdownMenu>
             <DropdownItem onClick={() => props.fileDropdownFilter('All Files')}>All Files</DropdownItem>
-              <DropdownItem onClick={() =>props.fileDropdownFilter("PRE DUPE")}>Pre Dupe</DropdownItem>
-              <DropdownItem onClick={() =>props.fileDropdownFilter('DE DUPED')}>De Duped</DropdownItem>
+              <DropdownItem onClick={() =>props.fileDropdownFilter('Pre Dupe')}>Pre Dupe</DropdownItem>
+              <DropdownItem onClick={() =>props.fileDropdownFilter('De Duped')}>De Duped</DropdownItem>
+              <DropdownItem onClick={() =>props.fileDropdownFilter('Rejected')}>Rejected</DropdownItem>
             </DropdownMenu>
         </Dropdown>
         <Button 
@@ -48,17 +50,17 @@ const AcceptedFilesHeader = (props) => {
           selectedFiles={props.selectedFiles} 
           fileHandler={props.fileHandler} 
         />
-        <Button 
+        {/* <Button 
           color='white'
           className='bankButton' 
           style={{marginLeft: 10}} 
           onClick={(e) => props.filesDisplayedHandler()}
         >
           Show Rejected Files
-        </Button>
+        </Button> */}
       </div>
     </> 
   );
 }
 
-export default (AcceptedFilesHeader)
+export default (SampleFilesHeader)
