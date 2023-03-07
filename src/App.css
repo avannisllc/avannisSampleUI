@@ -245,6 +245,39 @@ button.fileButton:hover{
   cursor: pointer;
 }
 
+.tabContainer{
+  width:100%
+}
+/* .tabContent{
+  border: #2e588b 1px solid;
+} */
+
+.tabContent {
+  width:100%;
+  border: 1px solid #2e588b;
+  /* border-right: 1px solid #2e588b; */
+  /* padding: 10px; */
+}
+.tabBorder{
+  width: 100%;
+  border: 2px solid lightgray;
+  border-radius: 5px;
+}
+
+.navTabs {
+  width:98%;
+  margin-bottom: 0;
+  border: 1px solid #2e588b;
+  /* padding: 10px; */
+}
+.fileModal{
+  font-family: Citzel, BELL GOTHIC LIGHT;
+}
+.modalHeader {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
 #searchImportBankName{
   margin: 0px 5px;
 }
@@ -329,6 +362,7 @@ select,
 
 .bankButton {
   width: auto;
+  color: black;
   opacity: unset;
   border-radius: 10px;
   height: 38px;

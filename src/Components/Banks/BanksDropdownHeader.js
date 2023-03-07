@@ -2,7 +2,6 @@ import React from 'react';
 import Select from 'react-select';
 import { ProgressBar } from 'react-bootstrap'
 import './../../App.css';
-
 class BanksDropdownHeader extends React.Component {
   constructor(props){
     super(props)
@@ -48,12 +47,13 @@ class BanksDropdownHeader extends React.Component {
           >
             <div className='resultsDiv' style={{fontWeight: 'bold', color: 'white', marginBottom: 5, marginTop: 5}}>
             </div>
+
               <Select 
                 id='dropdownSelector'
                 styles={{marginTop: 10}}
                 theme={(theme) => ({
                   ...theme,
-                  borderRadius: 0,
+                  borderRadius: 5,
                   colors: {
                     ...theme.colors
                   },

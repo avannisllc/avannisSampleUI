@@ -1,9 +1,12 @@
 import React from 'react';
 import './../../../../App.css';
-import Files from './../Modals/SampleFilesModal';
 import MutliFileModalDelete from './../Modals/MutliFileModalDelete';
 import SampleFilesHeader from './../SampleFiles/SampleFilesHeader';
 import { Alert } from 'react-bootstrap'
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import SampleFiles from './../SampleFiles/SampleFiles';
+
 
 class Table extends React.Component {
   constructor(props){
@@ -17,7 +20,10 @@ class Table extends React.Component {
       fileDropdownSelected:'All Files',
       dropdownOpen: false,
       tableUploadingFile: this.props.tableUploadingFile,
-      tableDeletingFiles: this.props.tableDeletingFiles
+      tableDeletingFiles: this.props.tableDeletingFiles,
+      daysDropdownOpen: false,
+      daysForFiles: 20,
+      tableIsLoading: false,
     }
   }
 
@@ -31,10 +37,15 @@ class Table extends React.Component {
       }
       
     }, 100)
-    console.log(this.props.files, 'files')
   }
 
   componentDidUpdate(prevProps, prevState){
+    if(this.props.files.sampleData !== prevProps.files.sampleData){
+      this.setState({
+        acceptedFiles: this.props.files.sampleData,
+        tableIsLoading: false
+      })
+    }
     if (prevProps.tableDeletingFilesSuccess !== this.props.tableDeletingFilesSuccess){
       this.setState({
         tableDeletingFiles: false
@@ -123,9 +134,27 @@ class Table extends React.Component {
       })
     }
   }
-  
-  // Need to add a function to filter the files by the drop down menu
 
+  //Dropdown menu  functionality for # days for the files to be displayed
+  daysDropdowntoggle(){
+    this.setState({
+      daysDropdownOpen: !this.state.daysDropdownOpen
+    })
+  } 
+
+  daysForFilesToBeDisplayed(days){
+    let bank_abbr = this.props.bank.name
+    let bank_name = this.props.bank.formatted_name
+    let bank_id = this.props.bank.id
+    let e={name: bank_abbr, label: bank_name, id: bank_id}
+    this.setState({
+      daysForFiles: days,
+      tableIsLoading: true
+    })
+    this.props.pullNewSampleFiles(e, days)
+  }
+  
+  // This is the functionality that filters the files by the drop down menu
   fileFilterDropdowntoggle(){
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
@@ -146,7 +175,6 @@ class Table extends React.Component {
       })
     }
   }
-
 
   // Need to add a lambda function that takes the selected files and runs the dupe file scrubber
 
@@ -169,6 +197,10 @@ class Table extends React.Component {
             fileDropdownSelected={fileDropdownSelected}
             fileFilterDropdowntoggle={this.fileFilterDropdowntoggle.bind(this)}
             dropdownOpen={dropdownOpen}
+            daysForFilesToBeDisplayed={this.daysForFilesToBeDisplayed.bind(this)}
+            daysForFiles={this.state.daysForFiles}
+            daysDropdownOpen={this.state.daysDropdownOpen}
+            daysDropdowntoggle={this.daysDropdowntoggle.bind(this)}
           />
 
         <Alert 
@@ -224,7 +256,15 @@ class Table extends React.Component {
         > 
           Your file did not upload. Please review formatting. 
         </Alert>
-
+        {this.state.tableIsLoading ?
+            <Box 
+            style={{width: '300px', display: 'inline-flex', justifyContent: 'center', alignItems: 'center', height: "300px", marginTop: 30}}
+            >
+              <CircularProgress 
+                style={{color: '#233d4f', height: '250px', width: '250px'}}
+              />
+            </Box>
+          :
         <table id="table" style={{width: 'inherit', display: 'inline-table'}}>
           <tr style={{display: 'table-header-group', height: '65px'}}>
             <th style={{width: '10%', textAlign: 'center'}}>Select</th>
@@ -236,6 +276,7 @@ class Table extends React.Component {
           </tr>
 
         {/* Mapping through the accepted files and passing them as props*/}
+      
         {acceptedFiles.map((file, index) =>
           <div 
             key={index}
@@ -246,7 +287,8 @@ class Table extends React.Component {
               width: '100%' 
             }} 
           >
-            <Files 
+          
+            <SampleFiles
               addToSelectedFiles={this.addToSelectedFiles.bind(this)}
               allFileSelectHandler={this.props.allFileSelectHandler} 
               allCheckedSetState={this.props.allCheckedSetState} 
@@ -268,9 +310,11 @@ class Table extends React.Component {
               selectAllChecked={this.props.selectAllChecked} 
               updateAlertHandler={this.updateAlertHandler.bind(this)} 
             />
+          
           </div>  
         )}
       </table>
+      }
     </div>
   )}
 }

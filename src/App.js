@@ -823,13 +823,17 @@ class App extends React.Component {
 		await API.graphql({ query: onUpdateQuotas, variables: { filter: { bank_name: bankName || this.state.name } } });
 	}
 
-	async selectedBank(e, formattedName) {
+	async selectedBank(e, formattedName, daysForFiles) {
 		this.setState({singleBankDataLoaded: false})
 		let bank_name = e.name;
 		let name = formattedName;
+		let time_frame= 20;
+		if(daysForFiles !== undefined){
+			time_frame = daysForFiles;
+		}
 		let id = e.id || this.state.bankInfo.id;
 		await this.setProgressBarLoading();
-		let jsonString = JSON.stringify({ listFiles: [ bank_name ] });
+		let jsonString = JSON.stringify({ listFiles: [ bank_name, time_frame]});
 		const api = 'https://8vpyhf2yt3.execute-api.us-west-2.amazonaws.com/default/dataprocess_utils';
 		let bankInfo = [
 			{
@@ -850,7 +854,7 @@ class App extends React.Component {
 			.then((response) => {
 				if (response.data.body) {
 					let data = JSON.parse(response.data.body);
-					let selectedBankName = Object.keys(data)[0];
+					let selectedBankName = Object.keys(data)[1];
 					let files = data[selectedBankName];
 					let acceptedFiles = [];
 					let rejectedFiles = [];
@@ -1877,6 +1881,10 @@ class App extends React.Component {
 		});
 	}
 
+	pullNewSampleFiles(e, days) {
+		this.selectedBank(e, e.label, days);
+	}
+
 	render() {
 		return (
 			<div className="App" style={{ backgroundColor: '#f8fcff' }}>
@@ -1958,6 +1966,7 @@ class App extends React.Component {
 							clickedOutside={this.state.clickedOutside}
 							open={this.state.open}
 							data={this.state.data}
+							pullNewSampleFiles={this.pullNewSampleFiles.bind(this)}
 						/>
 					</div>
 				</div>

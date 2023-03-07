@@ -1,6 +1,7 @@
 import React from 'react';
 import './../../App.css';
 import Tabs from './../../Containers/TabsContainer/TabsDashboard/Tabs'
+import BankTabs from './../../Containers/TabsContainer/TabsDashboard/BankTabs'
 import DeactivateBankBtn from './DeactivateBankBtn'
 
 class Bank extends React.Component {
@@ -26,7 +27,7 @@ class Bank extends React.Component {
       <div style={{marginTop: 0}}>
         {this.props.bank.map(bank => {
             return <div  style={{width: "95vw", display: 'inline-flex', marginTop: 5, flexDirection: 'column', alignItems: 'center'}} className='div' key={bank.id || bank.name}>
-                      <div className='bankGlobalContainer' style={
+                      {/* <div className='bankGlobalContainer' style={
                         { display: 'inline-table',
                           flexDirection: 'row',
                           alignContent: 'center',
@@ -40,8 +41,8 @@ class Bank extends React.Component {
                         <h1 className='bankNameGlobal' >{bank.formatted_name}</h1>
                         <p style={{marginTop: 0, marginBottom: 0, color: '#233d4f', fontWeight: 'bold'}}>- SMKEY: {bank.name} -</p>
                         <DeactivateBankBtn bank={this.props.bank} deactivateBank={this.props.deactivateBank} />
-                      </div>
-                      <Tabs 
+                      </div> */}
+                      <BankTabs 
                         exportInterviewData={this.props.exportInterviewData}
                         deleteAcceptedFiles={this.props.deleteAcceptedFiles}
                         filesDisplayedHandler={this.props.filesDisplayedHandler}
@@ -83,16 +84,23 @@ class Bank extends React.Component {
                         refreshFileLocation={this.props.refreshFileLocation}
                         interviewScrubHandler={this.props.interviewScrubHandler}
                         phoneScrubHandler={this.props.phoneScrubHandler}
-                        startDate={this.props.startDate} endDate={this.props.endDate} setDateRange={this.props.setDateRange} 
+                        startDate={this.props.startDate} 
+                        endDate={this.props.endDate} 
+                        setDateRange={this.props.setDateRange} 
                         allFileSelectHandler={this.props.allFileSelectHandler} 
                         allCheckedSetState={this.props.allCheckedSetState} 
-                        handleAllChecked={this.props.handleAllChecked} selectAllChecked={this.props.selectAllChecked} 
+                        handleAllChecked={this.props.handleAllChecked} 
+                        selectAllChecked={this.props.selectAllChecked} 
                         fileSelectHandler={this.props.fileSelectHandler} 
                         handleButtonClick={this.props.handleButtonClick} 
                         handleClickOutside={this.props.handleClickOutside} 
                         clickedOutside={this.props.clickedOutside} 
                         files={bank.files} 
-                        open={this.props.open} bank={bank} data={this.props.data}/>
+                        open={this.props.open} 
+                        bank={bank} 
+                        data={this.props.data}
+                        pullNewSampleFiles={this.props.pullNewSampleFiles}
+                      />
                     </div>
         })
       }

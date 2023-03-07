@@ -8,6 +8,7 @@ import {
 
 } from 'reactstrap';
 import MutliFileModalDelete from './../Modals/MutliFileModalDelete';
+import MutliFileDeDupModal from '../Modals/MultiFileDeDupeModal';
 
 
 const SampleFilesHeader = (props) => {
@@ -22,10 +23,10 @@ const SampleFilesHeader = (props) => {
           <DropdownToggle color="white" className='bankButton' caret>{props.fileDropdownSelected}</DropdownToggle>
           <DropdownMenu>
             <DropdownItem onClick={() => props.fileDropdownFilter('All Files')}>All Files</DropdownItem>
-              <DropdownItem onClick={() =>props.fileDropdownFilter('Pre Dupe')}>Pre Dupe</DropdownItem>
-              <DropdownItem onClick={() =>props.fileDropdownFilter('De Duped')}>De Duped</DropdownItem>
-              <DropdownItem onClick={() =>props.fileDropdownFilter('Rejected')}>Rejected</DropdownItem>
-            </DropdownMenu>
+            <DropdownItem onClick={() =>props.fileDropdownFilter('Pre Dupe')}>Pre Dupe</DropdownItem>
+            <DropdownItem onClick={() =>props.fileDropdownFilter('De Duped')}>De Duped</DropdownItem>
+            <DropdownItem onClick={() =>props.fileDropdownFilter('Rejected')}>Rejected</DropdownItem>
+          </DropdownMenu>
         </Dropdown>
         <Button 
           color='white'
@@ -50,6 +51,24 @@ const SampleFilesHeader = (props) => {
           selectedFiles={props.selectedFiles} 
           fileHandler={props.fileHandler} 
         />
+
+        <Dropdown 
+          isOpen={props.daysDropdownOpen} 
+          toggle={props.daysDropdowntoggle}
+          style={{marginLeft: 10}} 
+        >
+          <DropdownToggle color="white" className='bankButton' caret>{props.daysForFiles} days </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem onClick={() => props.daysForFilesToBeDisplayed(1)}>1 day</DropdownItem>
+            <DropdownItem onClick={() =>props.daysForFilesToBeDisplayed(2)}>2 days</DropdownItem>
+            <DropdownItem onClick={() =>props.daysForFilesToBeDisplayed(3)}>3 days</DropdownItem>
+            <DropdownItem onClick={() =>props.daysForFilesToBeDisplayed(4)}>4 days</DropdownItem>
+            <DropdownItem onClick={() =>props.daysForFilesToBeDisplayed(5)}>5 days</DropdownItem>
+            <DropdownItem onClick={() =>props.daysForFilesToBeDisplayed(6)}>6 days</DropdownItem>
+            <DropdownItem onClick={() =>props.daysForFilesToBeDisplayed(7)}>7 days</DropdownItem>
+            </DropdownMenu>
+        </Dropdown>
+
         {/* <Button 
           color='white'
           className='bankButton' 
@@ -58,6 +77,16 @@ const SampleFilesHeader = (props) => {
         >
           Show Rejected Files
         </Button> */}
+        {/* <Button
+          color='white'
+          className='bankButton'
+          style={{marginLeft: 10}} 
+        >
+          De-Dupe Selected
+        </Button> */}
+        <MutliFileDeDupModal
+          selectedFiles={props.selectedFiles} 
+        />
       </div>
     </> 
   );
