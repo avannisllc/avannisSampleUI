@@ -1893,6 +1893,7 @@ class App extends React.Component {
 		let fieldName = field_name;
 		let data= {bank_name: bankName, field_name: fieldName}
 	
+		
 		let jsonString = JSON.stringify(data);
 		const api = 'https://8vpyhf2yt3.execute-api.us-west-2.amazonaws.com/default/dedupe_by_field_name';
 		await axios
