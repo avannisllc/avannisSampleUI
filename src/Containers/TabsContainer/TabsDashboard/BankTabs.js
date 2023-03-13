@@ -273,6 +273,7 @@ class BankTabs extends React.Component {
                 bank={this.props.bank} 
                 data={this.props.data}
                 pullNewSampleFiles={this.props.pullNewSampleFiles}
+                deDupeFiles={this.props.deDupeFiles}
               />
             </TabPanel>
             <TabPanel value="quotas">

@@ -224,6 +224,9 @@ const MutliFileDeDupModal = (props) => {
                   Close
                </Button>
                <Button className="deleteFileConfirm" style={{backgroundColor: '#233d4f'}} onClick={(e) => {
+                  const fieldName= "email";
+                  // console.log(`fieldName: ${fieldName} bankName: ${props.bankName}`)
+                  props.deDupeFiles(e, props.bankName, fieldName)
                    // try {
                   //    if (props.props.selectedFiles[0].delete_file_log || props.props.selectedFiles[0].cloudwatch_log){
                   //    props.fileHandler(props.selectedFiles, 'delete')

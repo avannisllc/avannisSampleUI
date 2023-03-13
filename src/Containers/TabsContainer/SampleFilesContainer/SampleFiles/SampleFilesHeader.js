@@ -8,7 +8,7 @@ import {
 
 } from 'reactstrap';
 import MutliFileModalDelete from './../Modals/MutliFileModalDelete';
-import MutliFileDeDupModal from '../Modals/MultiFileDeDupeModal';
+
 
 
 const SampleFilesHeader = (props) => {
@@ -69,24 +69,16 @@ const SampleFilesHeader = (props) => {
             </DropdownMenu>
         </Dropdown>
 
-        {/* <Button 
-          color='white'
-          className='bankButton' 
-          style={{marginLeft: 10}} 
-          onClick={(e) => props.filesDisplayedHandler()}
-        >
-          Show Rejected Files
-        </Button> */}
-        {/* <Button
+        <Button 
           color='white'
           className='bankButton'
+          active
           style={{marginLeft: 10}} 
-        >
-          De-Dupe Selected
-        </Button> */}
-        <MutliFileDeDupModal
-          selectedFiles={props.selectedFiles} 
-        />
+          onClick={() => {
+            props.invokeDeDup()
+        }}>
+          De-Dup Files
+        </Button>
       </div>
     </> 
   );

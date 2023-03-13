@@ -153,6 +153,22 @@ class Table extends React.Component {
     })
     this.props.pullNewSampleFiles(e, days)
   }
+
+  //this is the functionality that invokes the de-dup function
+  invokeDeDup(){
+    let bankName = this.props.bank.name
+    let label = this.props.bank.formatted_name
+    let bank_id = this.props.bank.id
+    let days=20
+    let fieldName= "email";
+    let e={name: bankName, label: label, id: bank_id}
+    this.setState({
+      tableIsLoading: true,
+      daysForFiles: days,
+    })
+    this.props.deDupeFiles(e, bankName, fieldName, days)
+
+  }
   
   // This is the functionality that filters the files by the drop down menu
   fileFilterDropdowntoggle(){
@@ -201,6 +217,7 @@ class Table extends React.Component {
             daysForFiles={this.state.daysForFiles}
             daysDropdownOpen={this.state.daysDropdownOpen}
             daysDropdowntoggle={this.daysDropdowntoggle.bind(this)}
+            invokeDeDup={this.invokeDeDup.bind(this)}
           />
 
         <Alert 
@@ -308,7 +325,7 @@ class Table extends React.Component {
               phoneScrubHandler={this.props.phoneScrubHandler} 
               removeSelectedFiles={this.removeSelectedFiles.bind(this)}
               selectAllChecked={this.props.selectAllChecked} 
-              updateAlertHandler={this.updateAlertHandler.bind(this)} 
+              updateAlertHandler={this.updateAlertHandler.bind(this)}
             />
           
           </div>  

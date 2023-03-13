@@ -1881,8 +1881,28 @@ class App extends React.Component {
 		});
 	}
 
+	//This function is called when the user selects a number of days to pull from the accepted files on the sample data tab
 	pullNewSampleFiles(e, days) {
 		this.selectedBank(e, e.label, days);
+	}
+	
+
+	//This function is called when the user clicks on the "de-duped" button on the sample data tab
+	async deDupeFiles(e, bank_name, field_name, days) {
+		let bankName = bank_name;
+		let fieldName = field_name;
+		let data= {bank_name: bankName, field_name: fieldName}
+	
+		let jsonString = JSON.stringify(data);
+		const api = 'https://8vpyhf2yt3.execute-api.us-west-2.amazonaws.com/default/dedupe_by_field_name';
+		await axios
+			.post(api, jsonString)
+			.then((res) => {
+				this.selectedBank(e, e.label, days);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	}
 
 	render() {
@@ -1967,6 +1987,7 @@ class App extends React.Component {
 							open={this.state.open}
 							data={this.state.data}
 							pullNewSampleFiles={this.pullNewSampleFiles.bind(this)}
+							deDupeFiles={this.deDupeFiles.bind(this)}
 						/>
 					</div>
 				</div>

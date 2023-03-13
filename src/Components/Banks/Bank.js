@@ -1,6 +1,5 @@
 import React from 'react';
 import './../../App.css';
-import Tabs from './../../Containers/TabsContainer/TabsDashboard/Tabs'
 import BankTabs from './../../Containers/TabsContainer/TabsDashboard/BankTabs'
 import DeactivateBankBtn from './DeactivateBankBtn'
 
@@ -100,6 +99,7 @@ class Bank extends React.Component {
                         bank={bank} 
                         data={this.props.data}
                         pullNewSampleFiles={this.props.pullNewSampleFiles}
+                        deDupeFiles={this.props.deDupeFiles}
                       />
                     </div>
         })
