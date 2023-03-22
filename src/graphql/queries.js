@@ -8,6 +8,7 @@ export const getBank = /* GraphQL */ `
       formatted_bank_name
       active
       ui_display_map
+      dupefields
     }
   }
 `;
@@ -23,6 +24,7 @@ export const listBanks = /* GraphQL */ `
         formatted_bank_name
         active
         ui_display_map
+        dupefields
       }
       nextToken
     }

@@ -68,17 +68,6 @@ const SampleFilesHeader = (props) => {
             <DropdownItem onClick={() =>props.daysForFilesToBeDisplayed(7)}>7 days</DropdownItem>
             </DropdownMenu>
         </Dropdown>
-
-        <Button 
-          color='white'
-          className='bankButton'
-          active
-          style={{marginLeft: 10}} 
-          onClick={() => {
-            props.invokeDeDup()
-        }}>
-          De-Dup Files
-        </Button>
       </div>
     </> 
   );

@@ -118,7 +118,6 @@ class App extends React.Component {
 
 	async fetchAllBanks(name, bank_name) {
 		let listBanksApiData = await API.graphql({ query: listBanks, variables: { filter: { active: { eq: true } } } });
-		console.log(listBanksApiData);
 		this.setState({ allBanks: listBanksApiData.data.listBanks.items, showResults: true });
 	}
 
@@ -721,7 +720,6 @@ class App extends React.Component {
 				variables: { filter: { bank_name: { eq: bankName || this.state.name } } }
 			}));
 		let filters = [];
-		console.log(quotas);
 		let quotaGrid = [
 			[
 				{ readOnly: true, value: 'Bank Branch' },
@@ -807,7 +805,6 @@ class App extends React.Component {
 			quotaGrid.push(array);
 		});
 		let copyQuotaGrid = JSON.parse(JSON.stringify(quotaGrid));
-		console.log(quotaGrid);
 		this.setState(
 			{
 				quotaGrid: quotaGrid,
@@ -823,8 +820,11 @@ class App extends React.Component {
 		await API.graphql({ query: onUpdateQuotas, variables: { filter: { bank_name: bankName || this.state.name } } });
 	}
 
+
 	async selectedBank(e, formattedName, daysForFiles) {
+		// Update state to indicate single bank data is not loaded yet
 		this.setState({singleBankDataLoaded: false})
+		// Extract necessary data from the event and set defaults if needed
 		let bank_name = e.name;
 		let name = formattedName;
 		let time_frame= 20;
@@ -832,9 +832,12 @@ class App extends React.Component {
 			time_frame = daysForFiles;
 		}
 		let id = e.id || this.state.bankInfo.id;
+		// Show progress bar
 		await this.setProgressBarLoading();
+		// Prepare API request
 		let jsonString = JSON.stringify({ listFiles: [ bank_name, time_frame]});
 		const api = 'https://8vpyhf2yt3.execute-api.us-west-2.amazonaws.com/default/dataprocess_utils';
+		// Create initial bankInfo object
 		let bankInfo = [
 			{
 				formatted_name: name,
@@ -849,16 +852,58 @@ class App extends React.Component {
 				}
 			}
 		];
+		//Function to process files
+		const processFiles = (filesArray, fileType) => {
+			if(filesArray.length > 0){
+				filesArray.forEach((file) => {
+					let fileName = Object.keys(file)[0];
+					let fileDate ='';
+					if(file[fileName].processed_date !== undefined){
+						fileDate = this.reverseDate(file[fileName].processed_date)
+					}
+					let fileStage = '';
+					let fileLocation = '';
+					if(file[fileName].location !== undefined){
+						fileStage = file[fileName].location
+						fileLocation=file[fileName].location
+					}else {
+						fileStage = fileType
+						fileLocation = fileType
+					}
+
+					let object={
+						name: fileName,
+						id: id,
+						location: fileLocation,
+						cloudwatch_log: file[fileName].cloudwatch_log,
+						delete_log_file: file[fileName].delete_log_file,
+						processed_date: fileDate,
+						stage: fileStage
+					}
+					bankInfo[0].files.items[fileType].push(object)
+					bankInfo[0].files.sampleData.push(object)
+				});
+			}else{
+				console.log('no files available', fileType)
+				let object = {
+					name: 'No files available',
+					location: fileType,
+				}
+				bankInfo[0].files.items[fileType].push(object)
+				bankInfo[0].files.sampleData.push(object)
+			}
+		}
+		// Make API request and process response
 		await axios
 			.post(api, jsonString)
 			.then((response) => {
 				if (response.data.body) {
+					// Parse response data and separate accepted and rejected files
 					let data = JSON.parse(response.data.body);
 					let selectedBankName = Object.keys(data)[1];
 					let files = data[selectedBankName];
 					let acceptedFiles = [];
 					let rejectedFiles = [];
-					let newFiles = [];
 					for (let key in files) {
 						if (key === 'rejected_files') {
 							let rejectedFilesObj = files[key];
@@ -879,164 +924,44 @@ class App extends React.Component {
 							}
 						}
 					}
-					if (acceptedFiles.length > 0) {
-						acceptedFiles.forEach((file) => {
-							let fileName = Object.keys(file)[0];
-							if (file[fileName].error) {
-								bankInfo[0].files.items.accepted.push({
-									name: fileName,
-									id: id,
-									location: file[fileName].location,
-									cloudwatch_log: file[fileName].cloudwatch_log,
-									delete_log_file: file[fileName].delete_log_file,
-									error: file[fileName].error,
-									processed_date: this.reverseDate(file[fileName].processed_date),
-									file_duped_date:''
-								});
-								bankInfo[0].files.sampleData.push({
-									name: fileName,
-									id: id,
-									location: file[fileName].location,
-									cloudwatch_log: file[fileName].cloudwatch_log,
-									delete_log_file: file[fileName].delete_log_file,
-									error: file[fileName].error,
-									processed_date: this.reverseDate(file[fileName].processed_date),
-									file_duped_date:'',
-									stage:file[fileName].location
-								});
-							} else {
-								let file_duped_date = '';
-								let stage = 'PRE DUPE';
-								if (file[fileName].file_duped_date !== 'nan') {
-									file_duped_date = file[fileName].file_duped_date
-									stage = 'DE DUPED'
-								}
-								
-								bankInfo[0].files.items.accepted.push({
-									name: fileName,
-									id: id,
-									// location: file[fileName].location,
-									location: stage,
-									cloudwatch_log: file[fileName].cloudwatch_log,
-									delete_log_file: file[fileName].delete_log_file,
-									processed_date: this.reverseDate(file[fileName].processed_date),
-									file_duped_date: file_duped_date,
-									error:''
-								});
-								bankInfo[0].files.sampleData.push({
-									name: fileName,
-									id: id,
-									// location: file[fileName].location,
-									location: stage,
-									cloudwatch_log: file[fileName].cloudwatch_log,
-									delete_log_file: file[fileName].delete_log_file,
-									processed_date: this.reverseDate(file[fileName].processed_date),
-									file_duped_date: file_duped_date,
-									error:'',
-									stage:stage
-								});
-							}
-						});
-					} else {
-						bankInfo[0].files.items.accepted.push({
-							name: 'No files available',
-							location: 'accepted'
-						});
-						bankInfo[0].files.sampleData.push({
-							name: 'No files available',
-							location: 'accepted'
-						});
-						
-					}
-					if (rejectedFiles.length > 0) {
-						rejectedFiles.forEach((file) => {
-							let fileName = Object.keys(file)[0];
-							if (file[fileName].error) {
-								bankInfo[0].files.items.rejected.push({
-									name: fileName,
-									id: id,
-									location: file[fileName].location,
-									cloudwatch_log: file[fileName].cloudwatch_log,
-									delete_log_file: file[fileName].delete_log_file,
-									error: file[fileName].error
-								});
-								bankInfo[0].files.sampleData.push({
-									name: fileName,
-									id: id,
-									location: file[fileName].location,
-									cloudwatch_log: file[fileName].cloudwatch_log,
-									delete_log_file: file[fileName].delete_log_file,
-									error: file[fileName].error,
-									file_duped_date:'',
-									processed_date:'',
-									stage:'Rejected'
-								});
-							} else {
-								bankInfo[0].files.items.rejected.push({
-									name: fileName,
-									id: id,
-									location: file[fileName].location,
-									cloudwatch_log: file[fileName].cloudwatch_log,
-									delete_log_file: file[fileName].delete_log_file,
-									file_duped_date:'',
-									processed_date:''
-								});
-								bankInfo[0].files.sampleData.push({
-									name: fileName,
-									id: id,
-									location: file[fileName].location,
-									cloudwatch_log: file[fileName].cloudwatch_log,
-									delete_log_file: file[fileName].delete_log_file,
-									file_duped_date:'',
-									processed_date:'',
-									stage:'Rejected'
-								});
-							}
-						});
-					} else {
-						bankInfo[0].files.items.rejected.push({
-							name: 'No files available',
-							location: 'rejected'
-						});
-						bankInfo[0].files.sampleData.push({
-							name: 'No files available',
-							location: 'rejected'
-						});
-					}
-					this.setState(
-						{
-							bankInfo: bankInfo,
-							selectedBank: name,
-							name: bank_name,
-							singleBankDataLoaded: true
-						} /* this.setLoadedBar() */
-					);
+					// Process accepted and rejected files and update bankInfo
+					processFiles(acceptedFiles, 'accepted');
+					processFiles(rejectedFiles, 'rejected');
+					// Update state and hide progress bar
+					this.setState({
+						bankInfo: bankInfo,
+						selectedBank: name,
+						name: bank_name,
+						singleBankDataLoaded: true
+					});
 					this.setLoadedBar();
-				} else {
+				}
+				if(response.data.body === undefined){
 					document.querySelector(
 						'.progress-bar.progress-bar-animated.progress-bar-striped'
 					).style.backgroundColor =
 						'#C81F28';
 					setTimeout(() => {
 						document.getElementById('progressBar').style.zIndex = -10;
-					}, 2500);
+					}, 1500);
 					setTimeout(() => {
 						this.unSetLoadedBar();
-					}, 3500);
-					bankInfo[0].files.items.rejected.push({ name: 'No files available', location: 'rejected' });
-					bankInfo[0].files.items.accepted.push({ name: 'No files available', location: 'rejected' });
-					bankInfo[0].files.sampleData.push({ name: 'No files available', location: 'rejected' });
-					bankInfo[0].files.sampleData.push({ name: 'No files available', location: 'accepted' });
+					}, 2500);
+					console.log('Error retrieving files for Sample Data')
+					let object = {
+						name: 'Error retrieving files',
+					}
+					bankInfo[0].files.items['accepted'].push(object)
+					bankInfo[0].files.sampleData.push(object)
+					this.setState({
+						bankInfo: bankInfo,
+						selectedBank: name,
+						name: bank_name,
+						singleBankDataLoaded: true
+					});
+					this.setLoadedBar();
 				}
-				this.setState({
-					bankInfo: bankInfo,
-					selectedBank: name,
-					name: bank_name,
-					singleBankDataLoaded: true
-				});
-				this.setLoadedBar();
-			})
-			.catch((error) => {
+			}).catch((error) => {
 				console.log(error);
 				document.querySelector(
 					'.progress-bar.progress-bar-animated.progress-bar-striped'
@@ -1060,7 +985,7 @@ class App extends React.Component {
 			console.log(err);
 		}
 		this.getQuotas(bank_name);
-	}
+	}	
 
 	async submitInterview() {
 		let currentInterview = this.state.formData[this.state.interviewIndex];
@@ -1881,30 +1806,13 @@ class App extends React.Component {
 		});
 	}
 
-	//This function is called when the user selects a number of days to pull from the accepted files on the sample data tab
+	//This function is called when the user selects a number of days from the dropdown on the sample data tab
+	// It will retrieve those number of days records from the accepted files in the sample table
 	pullNewSampleFiles(e, days) {
 		this.selectedBank(e, e.label, days);
 	}
 	
-
-	//This function is called when the user clicks on the "de-duped" button on the sample data tab
-	async deDupeFiles(e, bank_name, field_name, days) {
-		let bankName = bank_name;
-		let fieldName = field_name;
-		let data= {bank_name: bankName, field_name: fieldName}
 	
-		let jsonString = JSON.stringify(data);
-		const api = 'https://8vpyhf2yt3.execute-api.us-west-2.amazonaws.com/default/dedupe_by_field_name';
-		await axios
-			.post(api, jsonString)
-			.then((res) => {
-				this.selectedBank(e, e.label, days);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}
-
 	render() {
 		return (
 			<div className="App" style={{ backgroundColor: '#f8fcff' }}>
@@ -1987,7 +1895,6 @@ class App extends React.Component {
 							open={this.state.open}
 							data={this.state.data}
 							pullNewSampleFiles={this.pullNewSampleFiles.bind(this)}
-							deDupeFiles={this.deDupeFiles.bind(this)}
 						/>
 					</div>
 				</div>

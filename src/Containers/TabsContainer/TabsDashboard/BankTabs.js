@@ -188,7 +188,6 @@ class BankTabs extends React.Component {
   }
 
   changeTab = (e, newactiveTab) =>{
-    console.log(newactiveTab, 'e.target.value')
     this.setState({
       activeTab: newactiveTab
     })
@@ -273,7 +272,6 @@ class BankTabs extends React.Component {
                 bank={this.props.bank} 
                 data={this.props.data}
                 pullNewSampleFiles={this.props.pullNewSampleFiles}
-                deDupeFiles={this.props.deDupeFiles}
               />
             </TabPanel>
             <TabPanel value="quotas">

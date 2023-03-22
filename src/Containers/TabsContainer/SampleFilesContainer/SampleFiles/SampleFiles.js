@@ -76,14 +76,11 @@ class SampleFiles extends React.Component {
             <td style={{textAlign: 'center', verticalAlign: 'middle', textTransform: 'uppercase'}}>
                   {this.props.file.processed_date}
             </td>
-            <td style={{textAlign: 'center', verticalAlign: 'middle', textTransform: 'uppercase'}}>
-                  {this.props.file.file_duped_date}
-            </td>
             <td style={{textAlign: 'center', verticalAlign: 'middle', textTransform: 'uppercase', fontSize: 15}}>
                <div  style={{verticleAlign: "middle"}}>
-                  {this.props.file.name === "No files available" &&
+                  {/* {this.props.file.name === "No files available" &&
                   <span>N/A</span>
-                  }
+                  } */}
                   {this.props.file.stage !== 'Rejected' &&
                   <span>{this.props.file.location}</span>
                   }

@@ -154,21 +154,6 @@ class Table extends React.Component {
     this.props.pullNewSampleFiles(e, days)
   }
 
-  //this is the functionality that invokes the de-dup function
-  invokeDeDup(){
-    let bankName = this.props.bank.name
-    let label = this.props.bank.formatted_name
-    let bank_id = this.props.bank.id
-    let days=20
-    let fieldName= "email";
-    let e={name: bankName, label: label, id: bank_id}
-    this.setState({
-      tableIsLoading: true,
-      daysForFiles: days,
-    })
-    this.props.deDupeFiles(e, bankName, fieldName, days)
-
-  }
   
   // This is the functionality that filters the files by the drop down menu
   fileFilterDropdowntoggle(){
@@ -192,8 +177,7 @@ class Table extends React.Component {
     }
   }
 
-  // Need to add a lambda function that takes the selected files and runs the dupe file scrubber
-
+  
   render (
     {acceptedFiles, selectedFiles, dropdownOpen, fileDropdownSelected, tableDeletingFiles, tableUploadingFile}=this.state
   ) {
@@ -217,7 +201,6 @@ class Table extends React.Component {
             daysForFiles={this.state.daysForFiles}
             daysDropdownOpen={this.state.daysDropdownOpen}
             daysDropdowntoggle={this.daysDropdowntoggle.bind(this)}
-            invokeDeDup={this.invokeDeDup.bind(this)}
           />
 
         <Alert 
@@ -287,7 +270,6 @@ class Table extends React.Component {
             <th style={{width: '10%', textAlign: 'center'}}>Select</th>
             <th style={{width: '51%', textAlign: 'justify', textIndent: 10}}>File Name</th> 
             <th style={{width: '12%', textAlign: 'center'}}>Processed Date</th>
-            <th style={{width: '12%', textAlign: 'center'}}>De_Duped Date</th>
             <th style={{width: '12%', textAlign: 'center'}}>Stage</th>
             <th style={{textAlign: 'center', width: '15%'}} >File Options</th>
           </tr>

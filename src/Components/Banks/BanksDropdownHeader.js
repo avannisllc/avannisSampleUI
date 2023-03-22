@@ -18,7 +18,7 @@ class BanksDropdownHeader extends React.Component {
       if (prevProps.allBanks !== this.props.allBanks) {
         this.state.options.splice(0, this.state.options.length)
         this.props.allBanks.map((bank, index) => {
-          let obj = {label: bank.formatted_bank_name, name: bank.bank_name, id: bank.bank_name + index}
+          let obj = {label: bank.formatted_bank_name, name: bank.bank_name, id: bank.bank_name + index, deDupeFields: bank.dupefields}
           this.state.options.push(obj) 
           return true
         })
@@ -41,7 +41,7 @@ class BanksDropdownHeader extends React.Component {
     let results = "Results (" +  this.props.allBanks.length + ")"
     return (
       <div style={{maxWdth: 500, marginLeft: 150}} className="bankDropdownContainer">
-        <div className="row" style={{marginRight: 0, display: 'inline-flex', flexDirection: 'row'}}>
+        <div className="row" style={{marginRight: 0, display: 'inline-flex', flexDirection: 'row', marginTop: 7}}>
           <div 
             style={{display: 'inline-flex', flexDirection: 'row', alignItems: 'center'}} 
           >

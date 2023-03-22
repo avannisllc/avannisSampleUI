@@ -99,7 +99,6 @@ class Bank extends React.Component {
                         bank={bank} 
                         data={this.props.data}
                         pullNewSampleFiles={this.props.pullNewSampleFiles}
-                        deDupeFiles={this.props.deDupeFiles}
                       />
                     </div>
         })
